@@ -27,19 +27,16 @@
     "nodemon": "^1.18.7"
   },
   "dependencies": {
-    "@okta/okta-react": "^1.2.0",
     "body-parser": "^1.19.0",
+    "cors-anywhere": "^0.4.3",
     "express": "^4.17.1",
     "express-session": "^1.17.1",
     "mongoose": "^5.9.13",
     "node": "^14.2.0",
-<<<<<<< HEAD
+    "passport": "^0.4.1",
     "passport-local": "^1.0.0",
     "passport-local-mongoose": "^6.0.1",
-    "react-router-dom": "^4.3.1"
-=======
-    "react-router-dom": "^5.2.0",
-    "path": "^0.12.7"
->>>>>>> c1bbada75b82350445e1ab065e426d00d9a9f361
+    "path": "^0.12.7",
+    "react-router-dom": "^5.2.0"
   }
 }
