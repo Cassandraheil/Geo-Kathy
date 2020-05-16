@@ -19,6 +19,7 @@ export default {
   },
   // Saves a book to the database
   savePost: function (bookData) {
+    console.log("this is the data", bookData)
     return axios.post("/api/posts", bookData);
   },
   saveUser: function (userData) {
@@ -29,7 +30,9 @@ export default {
   },
   yelpCall: function (location, term) {
     console.log("location:", location, "term:", term)
-    return axios.get('https://cors-anywhere.herokuapp.com/'+"https://api.yelp.com/v3/businesses/search?location="+ location, {
+    return axios.get(
+      'https://cors-anywhere.herokuapp.com/'+
+      "https://api.yelp.com/v3/businesses/search?location="+ location, {
       headers: {
         Authorization: 'Bearer '+ process.env.REACT_APP_API_KEY
       },
