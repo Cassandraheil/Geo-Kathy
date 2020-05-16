@@ -40,10 +40,10 @@ class Home extends Component {
         restaurantsInArea.push({
           name: data.name,
           address: {
-            address1: data.address1,
-            city: data.city,
-            state: data.state,
-            zip: data.zip_code
+            address1: data.location.address1,
+            city: data.location.city,
+            state: data.location.state,
+            zip: data.location.zip_code
           },
           phone: data.display_phone,
           img: data.image_url,
@@ -88,13 +88,16 @@ handleFormSubmit = event => {
 
 locationClick = event => {
   event.preventDefault();
+  // var place = [];
   API.locationLookUp()
-    .then(res =>
-      // console.log(res.data.city),
-      this.setState({ location: res.data.city }),
-      console.log("this is state location", this.state.location))
+  .then(res =>{
+    // place.push(res.data.city)
+    // console.log(res.data.city),
+    this.setState({ location: res.data.city })
+  })
     .catch(err => console.log(err))
-  this.loadRestaurants(17557, "restaurant");
+    // console.log("this is place", push)
+  this.loadRestaurants(this.state.location, "restaurant");
 }
 
 render() {
@@ -160,26 +163,27 @@ render() {
         <Col size="md-6 sm-12">
         {this.state.restaurants.length ? (
           <List>
-            {this.state.restaurants.map(restaurant => (
-              <ListItem key={restaurant._id}>
+            {this.state.restaurants.map((restaurant, index)=> (
+              <ListItem key={"restaurant" + index}>
                 <strong>
                   {restaurant.name} by
                 </strong>
                 <p>
-                   Address: {restaurant.address.address1}{restaurant.address.address1}
-                   {restaurant.address.address1}
-                   {restaurant.address.address1}
+                   Address: {restaurant.address.address1}{restaurant.address.city}
+                   {restaurant.address.state}
+                   {restaurant.address.zip}
                 </p>
                 <p>
                    Phone: {restaurant.phone}
                 </p>
-                <img src={restaurant.img}></img>
-                  {/* <link href={restaurant.url}>this is a link to the yelp page</link> */}
+                <img src={restaurant.img} alt="resturant image"></img>
+                  <a href={restaurant.url}>this is a link to the yelp page</a>
                  <p>
                    Rating: {restaurant.rating}
                   </p>
+
                   <p>
-                   isclosed: {restaurant.isClosed}
+                   {restaurant.name} is: {restaurant.isClosed ? "Closed": "Open"}
                 </p>
             
             </ListItem>
@@ -197,3 +201,17 @@ render() {
 }
 
 export default Home;
+
+{this.state.restaurants.map((restaurant, index)=> (
+  <ListItem key={"restaurant" + index}>
+
+Address: {restaurant.address.address1}{restaurant.address.city}
+                   {restaurant.address.state}
+                   {restaurant.address.zip}
+
+
+                   {restaurant.name} is: {restaurant.isClosed ? "Closed": "Open"}\
+                   
+                   <img src={restaurant.img} alt="resturant image"></img>
+                  <a href={restaurant.url}>this is a link to the yelp page</a>
+                 
