@@ -12,7 +12,8 @@ class Home extends Component {
     posts: [],
     body: "",
     author: "",
-    location: ""
+    location: "",
+    restaurants: []
   };
 
   componentDidMount() {
@@ -25,9 +26,38 @@ class Home extends Component {
       .then(res =>
         this.setState({ posts: res.data, body: "", author: "", location: "" }),
         console.log(this.state.posts)
-        )
+      )
       .catch(err => console.log(err));
   };
+
+  loadRestaurants = (location, term) => {
+    API.yelpCall(location, term)
+    .then(res => {
+      var restaurantsInArea = [];
+      console.log("restaurants now", res.data)
+        for (var i=0; i< res.data.businesses.length; i++){
+        var data = res.data.businesses[i];
+        restaurantsInArea.push({
+          name: data.name,
+          address: {
+            address1: data.address1,
+            city: data.city,
+            state: data.state,
+            zip: data.zip_code
+          },
+          phone: data.display_phone,
+          img: data.image_url,
+          url: data.url,
+          rating: data.rating,
+          isClosed: data.is_closed
+
+
+        })
+      }
+      this.setState({ restaurants: restaurantsInArea })
+  })
+    .catch(err => console.log(err));
+  }
 
 //   deleteBook = id => {
 //     API.deleteBook(id)
@@ -35,99 +65,135 @@ class Home extends Component {
 //       .catch(err => console.log(err));
 //   };
 
-  handleInputChange = event => {
-    const { name, value } = event.target;
-    this.setState({
-      [name]: value
-    });
-  };
+handleInputChange = event => {
+  const { name, value } = event.target;
+  this.setState({
+    [name]: value
+  });
+};
 
-  handleFormSubmit = event => {
-    event.preventDefault();
-    console.log("in handle form submit")
-    if (this.state.location && this.state.author) {
-      API.savePost({
-        body: this.state.body,
-        author: this.state.author,
-        location: this.state.location
-      })
-        .then(res => this.loadPosts())
-        .catch(err => console.log(err));
-    }
-  };
-
-  locationClick = event => {
-    event.preventDefault();
-    API.locationLookUp()
-      .then(res =>
-        // console.log(res.data.city),
-        this.setState({ location: res.data.city }),
-        console.log(this.state.location))
-      .catch(err => console.log(err))
+handleFormSubmit = event => {
+  event.preventDefault();
+  console.log("in handle form submit")
+  if (this.state.location && this.state.author) {
+    API.savePost({
+      body: this.state.body,
+      author: this.state.author,
+      location: this.state.location
+    })
+      .then(res => this.loadPosts())
+      .catch(err => console.log(err));
   }
+};
 
-  render() {
-    return (
-      <Container fluid>
-        <Row>
-          <Col size="md-6">
-            {/* <Jumbotron>
+locationClick = event => {
+  event.preventDefault();
+  API.locationLookUp()
+    .then(res =>
+      // console.log(res.data.city),
+      this.setState({ location: res.data.city }),
+      console.log("this is state location", this.state.location))
+    .catch(err => console.log(err))
+  this.loadRestaurants(17557, "restaurant");
+}
+
+render() {
+  return (
+    <Container fluid>
+      <li><a href="/">home</a></li>
+      <li><a href="/login">Login</a></li>
+      <Row>
+        <Col size="md-6">
+          {/* <Jumbotron>
               <h1>What Books Should I Read?</h1>
             </Jumbotron> */}
-            <form>
-              <Input
-                value={this.state.location}
-                onChange={this.handleInputChange}
-                name="location"
-                placeholder="Location"
-              />
-              <Input
-                value={this.state.author}
-                onChange={this.handleInputChange}
-                name="author"
-                placeholder="Author (required)"
-              />
-              <TextArea
-                value={this.state.body}
-                onChange={this.handleInputChange}
-                name="body"
-                placeholder="Body"
-              />
-              <FormBtn
-                disabled={!(this.state.author && this.state.body)}
-                onClick={this.handleFormSubmit}
-              >
-                Submit Post
+          <form>
+            <Input
+              value={this.state.location}
+              onChange={this.handleInputChange}
+              name="location"
+              placeholder="Location"
+            />
+            <Input
+              value={this.state.author}
+              onChange={this.handleInputChange}
+              name="author"
+              placeholder="Author (required)"
+            />
+            <TextArea
+              value={this.state.body}
+              onChange={this.handleInputChange}
+              name="body"
+              placeholder="Body"
+            />
+            <FormBtn
+              disabled={!(this.state.author && this.state.body)}
+              onClick={this.handleFormSubmit}
+            >
+              Submit Post
               </FormBtn>
-            </form>
-          </Col>
-          <Col size="md-6 sm-12">
-            {/* <Jumbotron>
+          </form>
+        </Col>
+        <Col size="md-6 sm-12">
+          {/* <Jumbotron>
               <h1>Books On My List</h1>
             </Jumbotron> */}
-            <button onClick={this.locationClick}>Location</button>
-            {this.state.posts.length ? (
-              <List>
-                {this.state.posts.map(post => (
-                  <ListItem key={post._id}>
-                    <Link to={"/posts/" + post._id}>
-                      <strong>
-                        {post.body} by {post.author}
-                      </strong>
-                      <p>Posted in: {post.location} on {post.date}</p>
-                    </Link>
-                    {/* <DeleteBtn onClick={() => this.deleteBook(book._id)} /> */}
-                  </ListItem>
-                ))}
-              </List>
-            ) : (
+          <button onClick={this.locationClick}>Location</button>
+          {this.state.posts.length ? (
+            <List>
+              {this.state.posts.map(post => (
+                <ListItem key={post._id}>
+                  <Link to={"/posts/" + post._id}>
+                    <strong>
+                      {post.body} by {post.author}
+                    </strong>
+                    <p>Posted in: {post.location} on {post.date}</p>
+                  </Link>
+                  {/* <DeleteBtn onClick={() => this.deleteBook(book._id)} /> */}
+                </ListItem>
+              ))}
+            </List>
+          ) : (
               <h3>No Results to Display</h3>
             )}
-          </Col>
-        </Row>
-      </Container>
-    );
-  }
+        </Col>
+        <Col size="md-6 sm-12">
+        {this.state.restaurants.length ? (
+          <List>
+            {this.state.restaurants.map(restaurant => (
+              <ListItem key={restaurant._id}>
+                <strong>
+                  {restaurant.name} by
+                </strong>
+                <p>
+                   Address: {restaurant.address.address1}{restaurant.address.address1}
+                   {restaurant.address.address1}
+                   {restaurant.address.address1}
+                </p>
+                <p>
+                   Phone: {restaurant.phone}
+                </p>
+                <img src={restaurant.img}></img>
+                  {/* <link href={restaurant.url}>this is a link to the yelp page</link> */}
+                 <p>
+                   Rating: {restaurant.rating}
+                  </p>
+                  <p>
+                   isclosed: {restaurant.isClosed}
+                </p>
+            
+            </ListItem>
+            ))}
+          </List>
+        ) : (
+            <h3>No Results to Display</h3>
+          )}
+        </Col>
+      </Row>
+
+    </Container>
+  );
+}
 }
 
 export default Home;
