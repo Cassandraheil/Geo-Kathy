@@ -31,6 +31,7 @@
     "cors-anywhere": "^0.4.3",
     "express": "^4.17.1",
     "express-session": "^1.17.1",
+    "moment": "^2.25.3",
     "mongoose": "^5.9.13",
     "node": "^14.2.0",
     "passport": "^0.4.1",

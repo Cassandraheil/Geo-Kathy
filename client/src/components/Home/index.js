@@ -1,36 +1,49 @@
 import React, { Component } from "react";
-// import DeleteBtn from "../components/DeleteBtn";
-// import Jumbotron from "../components/Jumbotron";
 import API from "../../utils/API";
-import { Link } from "react-router-dom";
 import { Col, Row, Container } from "../Grid";
 import { List, ListItem } from "../List";
 import { Input, TextArea, FormBtn } from "../Form";
+import "./style.css";
+const Moment = require("moment");
 
 class Home extends Component {
   state = {
     posts: [],
     body: "",
     author: "",
-    location: "",
+    location: {
+      city: "",
+      state: "",
+      zip: ""
+    },
     restaurants: []
   };
 
   componentDidMount() {
-    console.log("component did mount function")
     this.loadPosts();
+    
   }
 
   loadPosts = () => {
-    API.getPosts()
-      .then(res =>
-        this.setState({ posts: res.data, body: "", author: "", location: "" }),
-        console.log(this.state.posts)
-      )
-      .catch(err => console.log(err));
+    API.locationLookUp()
+      .then(res => {
+        this.setState({ location: {
+          city: res.data.city,
+          state: res.data.region_code,
+          zip: res.data.zip
+        }})
+        console.log("locationLookUp location set: " + this.state.location.city + ", " + this.state.location.state + " " + this.state.location.zip);
+        API.getPosts(this.state.location.city, this.state.location.state)
+          .then(res =>
+            this.setState({ posts: res.data, body: "", author: "" }),
+          )
+          .catch(err => console.log(err));
+      })
+      .catch(err => console.log(err))
   };
 
   loadRestaurants = (location, term) => {
+    console.log("loadRestaurants location: " + location.city)
     API.yelpCall(location, term)
     .then(res => {
       var restaurantsInArea = [];
@@ -49,6 +62,7 @@ class Home extends Component {
           img: data.image_url,
           url: data.url,
           rating: data.rating,
+          distance: data.distance * 0.000621371,
           isClosed: data.is_closed
 
 
@@ -75,11 +89,12 @@ handleInputChange = event => {
 handleFormSubmit = event => {
   event.preventDefault();
   console.log("in handle form submit")
-  if (this.state.location && this.state.author) {
+  if (this.state.body && this.state.author) {
     API.savePost({
       body: this.state.body,
       author: this.state.author,
-      location: this.state.location
+      city: this.state.location.city,
+      state: this.state.location.state
     })
       .then(res => this.loadPosts())
       .catch(err => console.log(err));
@@ -88,15 +103,12 @@ handleFormSubmit = event => {
 
 locationClick = event => {
   event.preventDefault();
-  // var place = [];
   API.locationLookUp()
   .then(res =>{
-    // place.push(res.data.city)
-    // console.log(res.data.city),
-    this.setState({ location: res.data.city })
+    this.setState({ city: res.data.city, state: res.data.region_code })
   })
     .catch(err => console.log(err))
-    // console.log("this is place", push)
+  console.log(this.state.location);
   this.loadRestaurants(this.state.location, "restaurant");
 }
 
@@ -106,17 +118,11 @@ render() {
       <li><a href="/">home</a></li>
       <li><a href="/login">Login</a></li>
       <Row>
-        <Col size="md-6">
+        <Col size="md-12">
           {/* <Jumbotron>
               <h1>What Books Should I Read?</h1>
             </Jumbotron> */}
           <form>
-            <Input
-              value={this.state.location}
-              onChange={this.handleInputChange}
-              name="location"
-              placeholder="Location"
-            />
             <Input
               value={this.state.author}
               onChange={this.handleInputChange}
@@ -142,17 +148,15 @@ render() {
               <h1>Books On My List</h1>
             </Jumbotron> */}
           <button onClick={this.locationClick}>Location</button>
+          <h2>Posts</h2>
           {this.state.posts.length ? (
             <List>
               {this.state.posts.map(post => (
                 <ListItem key={post._id}>
-                  <Link to={"/posts/" + post._id}>
-                    <strong>
-                      {post.body} by {post.author}
-                    </strong>
-                    <p>Posted in: {post.location} on {post.date}</p>
-                  </Link>
-                  {/* <DeleteBtn onClick={() => this.deleteBook(book._id)} /> */}
+                    <h3>{post.author}</h3>
+                    <h4>Location: {post.city + ", " + post.state}</h4>
+                    <p>Date: {Moment(post.date).format('MMMM Do YYYY, h:mm a')}</p>
+                    <p>{post.body}</p>
                 </ListItem>
               ))}
             </List>
@@ -161,28 +165,28 @@ render() {
             )}
         </Col>
         <Col size="md-6 sm-12">
+          <h2>Kathy's Recommendations</h2>
         {this.state.restaurants.length ? (
           <List>
             {this.state.restaurants.map((restaurant, index)=> (
               <ListItem key={"restaurant" + index}>
-                <strong>
-                  {restaurant.name} by
-                </strong>
+                <h3>{restaurant.name}</h3>
+                <div>
+                  <p>
+                    Rating: {restaurant.rating}    |     
+                    Distance: {Math.floor(restaurant.distance)} miles
+                  </p>
+                </div>
                 <p>
-                   Address: {restaurant.address.address1}{restaurant.address.city}
-                   {restaurant.address.state}
-                   {restaurant.address.zip}
+                   {restaurant.address.address1} <br />
+                   {restaurant.address.city}, {restaurant.address.state} {restaurant.address.zip}
                 </p>
                 <p>
                    Phone: {restaurant.phone}
                 </p>
-                <img src={restaurant.img} alt="resturant image"></img>
-                  <a href={restaurant.url}>this is a link to the yelp page</a>
-                 <p>
-                   Rating: {restaurant.rating}
-                  </p>
-
-                  <p>
+                <img src={restaurant.img} alt="Restaurant Photo" className="rest-img"></img>
+                <a href={restaurant.url}>Check {restaurant.name} out on Yelp!</a>
+                <p>
                    {restaurant.name} is: {restaurant.isClosed ? "Closed": "Open"}
                 </p>
             
@@ -202,16 +206,16 @@ render() {
 
 export default Home;
 
-{this.state.restaurants.map((restaurant, index)=> (
-  <ListItem key={"restaurant" + index}>
+// {this.state.restaurants.map((restaurant, index)=> (
+//   <ListItem key={"restaurant" + index}>
 
-Address: {restaurant.address.address1}{restaurant.address.city}
-                   {restaurant.address.state}
-                   {restaurant.address.zip}
+// Address: {restaurant.address.address1}{restaurant.address.city}
+//                    {restaurant.address.state}
+//                    {restaurant.address.zip}
 
 
-                   {restaurant.name} is: {restaurant.isClosed ? "Closed": "Open"}\
+//                    {restaurant.name} is: {restaurant.isClosed ? "Closed": "Open"}\
                    
-                   <img src={restaurant.img} alt="resturant image"></img>
-                  <a href={restaurant.url}>this is a link to the yelp page</a>
+//                    <img src={restaurant.img} alt="resturant image"></img>
+//                   <a href={restaurant.url}>this is a link to the yelp page</a>
                  
