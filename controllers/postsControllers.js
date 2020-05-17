@@ -5,23 +5,24 @@ module.exports = {
   findAll: function(req, res) {
     db.Post
       .find(req.query)
-      // .populate('currentLocation')
-      // .populate('username')
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
   findById: function(req, res) {
     db.Post
       .findById(req.params.id)
-      // .populate('currentLocation')
-      // .populate('username')
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err));
+  },
+  findByLocation: function(req, res) {
+    db.Post
+      .find({ city: req.params.city, state: req.params.state })
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
   create: function(req, res) {
     db.Post
       .create(req.body)
-      // .populate('currentLocation')
       // .populate('username')
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));

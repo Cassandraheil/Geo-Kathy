@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const moment = require("moment");
 const Schema = mongoose.Schema;
 
 const postSchema = new Schema({
@@ -11,14 +12,18 @@ const postSchema = new Schema({
     //   ref: "User" 
     type: String
     },
-  location: { 
+  city: {
     //   type: Schema.Types.ObjectId, 
     //   ref: "User" 
     type: String
     },
+  state: {
+    type: String
+  },
   date: { 
       type: Date, 
-      default: Date.now 
+      default: Date.now
+      // default: moment(Date.now).format('MMMM Do YYYY, h:mm a'),
     }
 });
 
