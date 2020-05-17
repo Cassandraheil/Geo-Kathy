@@ -67,7 +67,22 @@ class Home extends Component {
 
 
         })
+      }      
+      function compare(a, b) {
+        // Use toUpperCase() to ignore character casing
+        const bandA = a.distance;
+        const bandB = b.distance;
+        
+        let comparison = 0;
+        if (bandA > bandB) {
+          comparison = 1;
+        } else if (bandA < bandB) {
+          comparison = -1;
+        }
+        return comparison;
       }
+      
+      restaurantsInArea.sort(compare);
       this.setState({ restaurants: restaurantsInArea })
   })
     .catch(err => console.log(err));
@@ -174,7 +189,7 @@ render() {
                 <div>
                   <p>
                     Rating: {restaurant.rating}    |     
-                    Distance: {Math.floor(restaurant.distance)} miles
+                    Distance: {restaurant.distance.toFixed(2)} miles
                   </p>
                 </div>
                 <p>
