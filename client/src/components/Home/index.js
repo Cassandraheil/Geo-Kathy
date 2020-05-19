@@ -3,6 +3,7 @@ import API from "../../utils/API";
 import { Col, Row, Container } from "../Grid";
 import { List, ListItem } from "../List";
 import { Input, TextArea, FormBtn } from "../Form";
+import Weather from '../Weather/index';
 import "./style.css";
 const Moment = require("moment");
 
@@ -14,15 +15,21 @@ class Home extends Component {
     location: {
       city: "",
       state: "",
-      zip: ""
+      zip: "",
+      lat:"",
+      lon:""
     },
     restaurants: []
   };
 
   componentDidMount() {
     this.loadPosts();
+
     
   }
+
+
+
 
   loadPosts = () => {
     API.locationLookUp()
@@ -30,13 +37,21 @@ class Home extends Component {
         this.setState({ location: {
           city: res.data.city,
           state: res.data.region_code,
-          zip: res.data.zip
+          zip: res.data.zip,
+          lat: res.data.latitude,
+          lon:res.data.longitude
         }})
         console.log("locationLookUp location set: " + this.state.location.city + ", " + this.state.location.state + " " + this.state.location.zip);
         API.getPosts(this.state.location.city, this.state.location.state)
           .then(res =>
             this.setState({ posts: res.data, body: "", author: "" }),
           )
+          // **********
+
+          API.getWeather(this.state.location.lat, this.state.location.lon)
+            .then( res => {
+              console.log('HELLLLO', res)
+            })
           .catch(err => console.log(err));
       })
       .catch(err => console.log(err))
@@ -132,6 +147,7 @@ render() {
     <Container fluid>
       <li><a href="/">home</a></li>
       <li><a href="/login">Login</a></li>
+      <Weather />
       <Row>
         <Col size="md-12">
           {/* <Jumbotron>
