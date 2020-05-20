@@ -12,12 +12,19 @@ const userSchema = new Schema({
       type: String, 
       required: true 
     },
-  currentLocation: { 
-      type: String,
-    },
+  city: { 
+      type: String
+  },
+  state: {
+      type: String
+  },
   pastLocations: { 
       type: Array, 
-    }
+    },
+  date: {
+    type: Date,
+    default: Date.now
+}
 });
 
 const User = mongoose.model("User", userSchema);
