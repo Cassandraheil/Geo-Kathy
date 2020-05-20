@@ -16,7 +16,7 @@ module.exports = {
   },
   findByLocation: function(req, res) {
     db.Post
-      .find({ city: req.params.city, state: req.params.state })
+      .find({ location: req.params.location })
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },

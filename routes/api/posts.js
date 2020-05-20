@@ -7,7 +7,7 @@ router.route("/")
   .post(postsController.create);
 
 // Matches with "/api/posts/:location"
-router.route("/:city/:state")
+router.route("/:location")
   .get(postsController.findByLocation)
   // .get(postsController.findById)
 //   .put(booksController.update)
