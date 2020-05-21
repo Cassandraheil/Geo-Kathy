@@ -3,7 +3,6 @@ import API from "../../utils/API";
 import { Col, Row, Container } from "../Grid";
 import { List, ListItem } from "../List";
 import { Input, TextArea, FormBtn } from "../Form";
-import Weather from '../Weather/index';
 import "./style.css";
 const Moment = require("moment");
 
@@ -12,18 +11,20 @@ class Home extends Component {
     posts: [],
     body: "",
     author: "",
-    // location: {
-    //   city: "",
-    //   state: "",
-    //   zip: "",
-    //   lat:"",
-    //   lon:""
-    // },
     location: "",
-    restaurants: []
+    coordinates: {
+      lat: "",
+      lon: ""
+    },
+    restaurants: [],
+    weather: {
+      min: "",
+      max: ""
+    }
   };
 
   componentDidMount() {
+    console.log("component did mount")
     this.loadPosts(); 
   }
 
@@ -31,20 +32,24 @@ class Home extends Component {
     API.locationLookUp()
       .then(res => {
         console.log("API locationlookup res", res)
-        this.setState({ location: res.data })
+        this.setState({ location: res.data.city + ", " + res.data.region_code })
+        this.setState({ coordinates: {lat: res.data.latitude, lon: res.data.longitude}})
         API.getPosts(this.state.location)
           .then(res =>
             this.setState({ posts: res.data, body: "", author: "" }),
-          )
-          // ********** Have to go back through and add lon/lat to location data pull
-          API.getWeather(this.state.location.lat, this.state.location.lon)
-            .then( res => {
-              console.log('HELLLLO', res)
-            })
-          .catch(err => console.log(err));
+          ).catch(err => console.log(err));
+        })
+      };
+
+  loadWeather = () => {
+    console.log(this.state.coordinates)
+    API.getWeather(this.state.coordinates)
+      .then(res => {
+        console.log("loadWeather res return: ", res);
+        this.setState({ weather: {min: res.data.minTemp, max: res.data.maxTemp} })
+        console.log("weather state: ", this.state.weather)
       })
-      .catch(err => console.log(err))
-  };
+  }
 
   loadRestaurants = () => {
     console.log("API.yelpCall: ", this.state.location)
@@ -55,12 +60,6 @@ class Home extends Component {
       })
     console.log("restaurants state: ", this.state.restaurants)
   }
-
-//   deleteBook = id => {
-//     API.deleteBook(id)
-//       .then(res => this.loadBooks())
-//       .catch(err => console.log(err));
-//   };
 
 handleInputChange = event => {
   const { name, value } = event.target;
@@ -88,13 +87,13 @@ handleFormSubmit = event => {
 
 locationClick = event => {
   event.preventDefault();
-  // API.locationLookUp()
-  // .then(res =>{
-  //   this.setState({ location: res.data })
-  // })
-  //   .catch(err => console.log(err))
-  // console.log(this.state.location);
   this.loadRestaurants();
+}
+
+weatherClick = event => {
+  event.preventDefault();
+  console.log("coordinates in location click: ", this.state.coordinates)
+  this.loadWeather();
 }
 
 render() {
@@ -102,7 +101,9 @@ render() {
     <Container fluid>
       <li><a href="/">home</a></li>
       <li><a href="/login">Login</a></li>
-      <Weather />
+        <h4>The minimum temperature is: {this.state.weather.min}</h4>
+        <h4>The maximum temperature is: {this.state.weather.max}</h4>
+
       <Row>
         <Col size="md-12">
           {/* <Jumbotron>
@@ -129,11 +130,12 @@ render() {
               </FormBtn>
           </form>
         </Col>
-        <Col size="md-6 sm-12">
+        <Col size="md-12 sm-12">
           {/* <Jumbotron>
               <h1>Books On My List</h1>
             </Jumbotron> */}
           <button onClick={this.locationClick}>Location</button>
+          <button onClick={this.weatherClick}>Weather</button>
           <h2>Posts</h2>
           {this.state.posts.length ? (
             <List>
@@ -150,7 +152,7 @@ render() {
               <h3>No Results to Display</h3>
             )}
         </Col>
-        <Col size="md-6 sm-12">
+        <Col size="md-12">
           <h2>Kathy's Recommendations</h2>
         {this.state.restaurants.length ? (
           <List>
@@ -170,7 +172,7 @@ render() {
                 <p>
                    Phone: {restaurant.phone}
                 </p>
-                <img src={restaurant.img} alt="Restaurant Photo" className="rest-img"></img>
+                <img src={restaurant.img} alt="Restaurant" className="rest-img"></img>
                 <a href={restaurant.url}>Check {restaurant.name} out on Yelp!</a>
                 <p>
                    {restaurant.name} is: {restaurant.isClosed ? "Closed": "Open"}

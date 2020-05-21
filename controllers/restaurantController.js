@@ -1,20 +1,16 @@
 const axios = require("axios");
-const express = require("express");
-var app = express();
 var restaurantsInArea = [];
 
 module.exports = {
   yelpCall: function(req, res) {
-    // const { query: params } = req;
-    // console.log("params: ", params.location)
     console.log(req.body.location);
     axios.get("https://api.yelp.com/v3/businesses/search?location="+ req.body.location, {
-              headers: {
-                Authorization: 'Bearer '+ "s26eVOVmND4ugPIyW1wsGPDv-vZIpYFXvHCWCWjhs_kQuldjsxZic9g9yA4eQSK_azDtN6f0rt_dSq36RRL7R_WRmeXFDwBmi96KNcekl-aYnP9lcHxb_BV7VNi6XnYx",
-              },
-              params: {
-                categories: "restaurant" //restaurant to begin
-              }})
+      headers: {
+        Authorization: 'Bearer '+ "s26eVOVmND4ugPIyW1wsGPDv-vZIpYFXvHCWCWjhs_kQuldjsxZic9g9yA4eQSK_azDtN6f0rt_dSq36RRL7R_WRmeXFDwBmi96KNcekl-aYnP9lcHxb_BV7VNi6XnYx",
+      },
+      params: {
+        categories: "restaurant"
+      }})
     .then(function(res) {
         for (var i=0; i< res.data.businesses.length; i++) {
             var data = res.data.businesses[i];
@@ -35,7 +31,6 @@ module.exports = {
             })
           } 
           function compare(a, b) {
-            // Use toUpperCase() to ignore character casing
             const bandA = a.distance;
             const bandB = b.distance;
             
@@ -47,11 +42,9 @@ module.exports = {
             }
             return comparison;
           }
-          
           restaurantsInArea.sort(compare);
-          console.log(restaurantsInArea);
-        }).then(results => res.json(restaurantsInArea))
+        })
+        .then(results => res.json(restaurantsInArea))
         .catch(err => console.log(err))
-    }
-
+  }
 }

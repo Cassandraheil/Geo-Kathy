@@ -7,24 +7,21 @@ const userSchema = new Schema({
       required: true,
       unique: true,
       trim: true
-    },
+  },
   password: { 
       type: String, 
       required: true 
-    },
-  city: { 
-      type: String
   },
-  state: {
-      type: String
+  location: {
+    type: String
   },
   pastLocations: { 
       type: Array, 
-    },
+  },
   date: {
     type: Date,
     default: Date.now
-}
+  }
 });
 
 const User = mongoose.model("User", userSchema);
