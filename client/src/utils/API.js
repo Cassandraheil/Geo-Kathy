@@ -2,7 +2,7 @@ import axios from "axios";
 
 export default {
   getWeather: function (lat, lon) {
-    console.log('YERRRR', lat, lon);
+    console.log('weather, lat and lon', lat, lon);
     return axios.get(`https://api.climacell.co/v3/weather/forecast/daily?lat=${lat}&lon=${lon}&unit_system=us&start_time=now&fields=temp&apikey=Us2CFeiIzNLHOM3yuTYilaSFcgDsoYpe`)
   },
   // Gets all posts
@@ -18,6 +18,7 @@ export default {
   getPosts: function(location) {
     return axios.get("/api/posts/" + location);
   },
+  
   // Gets the post with the given id
   // getPost: function (id) {
   //   return axios.get("/api/posts/" + id);
