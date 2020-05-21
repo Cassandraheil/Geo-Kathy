@@ -34,7 +34,7 @@ class Home extends Component {
         this.setState({ location: res.data })
         API.getPosts(this.state.location)
           .then(res =>
-            this.setState({ posts: res.data, body: "", author: "" }),
+            this.setState({ posts: res.data, body: "", author: ""}),
           )
           // ********** Have to go back through and add lon/lat to location data pull
           API.getWeather(this.state.location.lat, this.state.location.lon)
@@ -45,6 +45,8 @@ class Home extends Component {
       })
       .catch(err => console.log(err))
   };
+
+
 
   loadRestaurants = () => {
     console.log("API.yelpCall: ", this.state.location)
