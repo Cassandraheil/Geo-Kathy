@@ -5,8 +5,8 @@ const db = require("../../models");
 router.route("/")
   .post(userController.create);
 
-// router.route("/:id")
-//   .post(userController.update);
+router.route("/:id")
+  .post(userController.findById);
 
 
 //router.put("/update", (req, res) => {
