@@ -7,3 +7,11 @@ form {
     height: 30%;
     width: 30%;
 }
+
+a {
+    color: purple;
+}
+
+a:hover {
+    color: rebeccapurple;
+}

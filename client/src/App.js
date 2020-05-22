@@ -4,7 +4,10 @@ import jwt_decode from "jwt-decode";
 import setAuthToken from "./utils/setAuthToken";
 import { setCurrentUser, logoutUser } from "./actions/authActions";
 
+import Nav from "./components/Nav"
+import Jumbotron from "./components/Jumbotron";
 import Home from "./components/Home";
+
 // import Login from "./components/Sign-In";
 import Register from "./components/auth/Register";
 import Login from "./components/auth/Login";
@@ -15,6 +18,7 @@ import Dashboard from "./components/Dashboard/Dashboard";
 // Redux stuff
 import { Provider } from "react-redux";
 import store from "./store";
+
 
 // Check for token to keep user logged in
 if (localStorage.jwtToken) {
@@ -41,7 +45,9 @@ class App extends Component {
       <Provider store={store}>
         <Router>
           <div className="App">
+          <Nav />
               <Route exact path="/" component={Home} />
+              <Jumbotron />
               {/* <Route exact path="/posts" component={Home} /> */}
               <Route exact path="/register" component={Register} />
               <Route exact path="/login" component={Login} />
