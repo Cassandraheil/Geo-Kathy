@@ -51,6 +51,8 @@ class Home extends Component {
       })
   }
 
+
+
   loadRestaurants = () => {
     console.log("API.yelpCall: ", this.state.location)
     API.yelpCall(this.state.location)
