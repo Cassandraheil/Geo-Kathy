@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import API from "../../utils/API";
 import { Col, Row, Container } from "../Grid";
 import { List, ListItem } from "../List";
-import { Input, TextArea, FormBtn } from "../Form";
+import {TextArea, FormBtn } from "../Form";
 import "./style.css";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
@@ -53,7 +53,7 @@ class Home extends Component {
         this.setState({ coordinates: {lat: res.data.latitude, lon: res.data.longitude}})
         API.getPosts(this.state.location)
           .then(res =>
-            this.setState({ posts: res.data, body: ""}),
+            this.setState({ posts: res.data, body: "", author: "", vote: "" }),
           ).catch(err => console.log(err));
         })
       };
@@ -85,7 +85,6 @@ handleInputChange = event => {
   this.setState({
     [name]: value
   });
-  console.log(this.state.body)
 };
 
 
@@ -114,6 +113,17 @@ weatherClick = event => {
   this.loadWeather();
 }
 
+voteClick = (id) => {
+  console.log("user", this.state.user)
+  API.updatePost(id)
+  .then(res => {
+    console.log("voteclick res", res.data)
+    this.loadPosts()
+  }
+ )
+}
+
+
 render() {
   // const { user } = this.props.auth
   return (
@@ -135,9 +145,6 @@ render() {
 
       <Row>
         <Col size="md-12">
-          {/* <Jumbotron>
-              <h1>What Books Should I Read?</h1>
-            </Jumbotron> */}
           <form>
           <div className="card mt-4">
       <div className="card-header">
@@ -165,9 +172,6 @@ render() {
           </form>
         </Col>
         <Col size="md-12 sm-12">
-          {/* <Jumbotron>
-              <h1>Books On My List</h1>
-            </Jumbotron> */}
           <button onClick={this.locationClick}>Location</button>
           <button onClick={this.weatherClick}>Weather</button>
           <h2>Posts</h2>
@@ -175,10 +179,14 @@ render() {
             <List>
               {this.state.posts.map(post => (
                 <ListItem key={post._id}>
-                    <h3>{post.author}</h3>
-                    <h4>Location: {post.location}</h4>
-                    <p>Date: {Moment(post.date).format('MMMM Do YYYY, h:mm a')}</p>
-                    <p>{post.body}</p>
+                    <h4>{post.author}</h4>
+                    <h3>{post.body}</h3>
+                    <p>Location: {post.location} Date: {Moment(post.date).format('MMMM Do YYYY, h:mm a')}</p>
+                    <p> Vote: {post.vote} 
+              <i onClick={()=>(this.voteClick(post._id))} id={post._id} class="fas fa-angle-double-up"> </i>
+              {/* <i onClick={this.voteClick} id={post._id} class="fas fa-angle-double-down"> </i> */}
+              </p>
+
                 </ListItem>
               ))}
             </List>
@@ -240,16 +248,4 @@ export default connect(
   { logoutUser }
   )(Home);
 
-// {this.state.restaurants.map((restaurant, index)=> (
-//   <ListItem key={"restaurant" + index}>
-
-// Address: {restaurant.address.address1}{restaurant.address.city}
-//                    {restaurant.address.state}
-//                    {restaurant.address.zip}
-
-
-//                    {restaurant.name} is: {restaurant.isClosed ? "Closed": "Open"}\
-                   
-//                    <img src={restaurant.img} alt="resturant image"></img>
-//                   <a href={restaurant.url}>this is a link to the yelp page</a>
                  
