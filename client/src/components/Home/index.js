@@ -114,6 +114,12 @@ weatherClick = event => {
 }
 
 voteClick = (id) => {
+  // for (var j=0; j<this.state.post[j].length; j++){}  ---remember to wrap around everything
+  // if (id === this.state.post[j]){}     ---remember to wrap around everything
+  // for (var i=0; i<this.state.post[j].vote[i].length; i++){}     ---remember to wrap around everything
+  // if (username--what is passed in voteclick-- === this.state.post[j].vote[i]){
+  //   console.log("already voted")
+  // }
   console.log("user", this.state.user)
   API.updatePost(id)
   .then(res => {

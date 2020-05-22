@@ -20,7 +20,7 @@ const postSchema = new Schema({
       default: Date.now
   },
   vote: {
-    type: String,
+    type: Number,
     default: 0
   }
 

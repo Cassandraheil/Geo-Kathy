@@ -25,7 +25,8 @@ app.use("/api/users", users);
 // Connect to the Mongo DB
 mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/geo-test", {
   useUnifiedTopology: true,
-  useNewUrlParser: true
+  useNewUrlParser: true,
+  // useFindAndModify: true
 }).then(() => console.log("MongoDB connected"));
 
 app.use(passport.initialize());

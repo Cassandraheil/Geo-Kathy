@@ -45,9 +45,8 @@ module.exports = {
 //   }
 };
 
-
+//--------- steps to take once the username shows up on homepage
 // check if id is already in vote array--front end
-
 // call the update function if user id not already in there
 //make a new route for deleting the user id from array to take back their upvote
 //push user id to array or take away depending on if the id is already in array
