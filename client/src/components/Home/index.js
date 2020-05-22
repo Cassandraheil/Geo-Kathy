@@ -101,10 +101,8 @@ weatherClick = event => {
 render() {
   return (
     <Container fluid>
-      <li><a href="/">home</a></li>
-      <li><a href="/login">Login</a></li>
-        <h4>The minimum temperature is: {this.state.weather.min}</h4>
-        <h4>The maximum temperature is: {this.state.weather.max}</h4>
+        <h4>Temp High: {this.state.weather.min}</h4>
+        <h4>Temp Low: {this.state.weather.max}</h4>
 
       <Row>
         <Col size="md-12">
@@ -112,6 +110,8 @@ render() {
               <h1>What Books Should I Read?</h1>
             </Jumbotron> */}
           <form>
+          <div className="card mt-4">
+      <div className="card-header">
             <Input
               value={this.state.author}
               onChange={this.handleInputChange}
@@ -124,12 +124,15 @@ render() {
               name="body"
               placeholder="Body"
             />
+         
             <FormBtn
               disabled={!(this.state.author && this.state.body)}
               onClick={this.handleFormSubmit}
             >
               Submit Post
               </FormBtn>
+              </div>
+              </div>
           </form>
         </Col>
         <Col size="md-12 sm-12">
