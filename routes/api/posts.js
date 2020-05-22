@@ -9,8 +9,6 @@ router.route("/")
 // Matches with "/api/posts/:location"
 router.route("/:location")
   .get(postsController.findByLocation)
-  // .get(postsController.findById)
-//   .put(booksController.update)
-//   .delete(booksController.remove);
+
 
 module.exports = router;

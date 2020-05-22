@@ -6,25 +6,19 @@ const postSchema = new Schema({
   body: { 
       type: String, 
       required: true 
-    },
+  },
   author: { 
     //   type: Schema.Types.ObjectId, 
     //   ref: "User" 
     type: String
-    },
-  city: {
-    //   type: Schema.Types.ObjectId, 
-    //   ref: "User" 
-    type: String
-    },
-  state: {
+  },
+  location: {
     type: String
   },
   date: { 
       type: Date, 
       default: Date.now
-      // default: moment(Date.now).format('MMMM Do YYYY, h:mm a'),
-    }
+  }
 });
 
 const Post = mongoose.model("Post", postSchema);
