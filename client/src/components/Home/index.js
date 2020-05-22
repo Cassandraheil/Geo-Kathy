@@ -25,7 +25,8 @@ class Home extends Component {
 
   componentDidMount() {
     console.log("component did mount")
-    this.loadPosts(); 
+    this.loadPosts();
+    this.updateUser(); 
   }
 
   loadPosts = () => {
@@ -40,6 +41,12 @@ class Home extends Component {
           ).catch(err => console.log(err));
         })
       };
+
+  updateUser = () => {
+    // API.updateLocation(userId, location)    
+
+
+  }
 
   loadWeather = () => {
     console.log(this.state.coordinates)

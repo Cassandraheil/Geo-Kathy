@@ -5,6 +5,19 @@ const db = require("../../models");
 router.route("/")
   .post(userController.create);
 
+// router.route("/:id")
+//   .post(userController.update);
+
+
+//router.put("/update", (req, res) => {
+  // db.User.findOneandUpdate(userID)
+  // check if location is already set
+    // if no location set - set it
+  // check if location has already been added to past locations array
+    // if yes ignore
+    // if no push new location to array
+//})
+
 // validation stuff
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
@@ -27,7 +40,8 @@ router.post("/register", (req, res) => {
     } else {
       const newUser = new db.User({
         username: req.body.username,
-        password: req.body.password
+        password: req.body.password,
+        location: req.body.location
       });
       
       bcrypt.genSalt(10, (err, salt) => {
@@ -53,6 +67,7 @@ router.post("/login", (req, res) => {
 
   const username = req.body.username;
   const password = req.body.password;
+  const location = req.body.location;
 
   db.User.findOne({ username }).then(user => {
     if (!user) {
@@ -63,7 +78,8 @@ router.post("/login", (req, res) => {
       if (isMatch) {
         const payload = {
           id: user.id,
-          name: user.name
+          name: user.name,
+          location: user.location
         };
         
         jwt.sign(
@@ -85,5 +101,7 @@ router.post("/login", (req, res) => {
     });
   });
 });
+
+
   
 module.exports = router;
