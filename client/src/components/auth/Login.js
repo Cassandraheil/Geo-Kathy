@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { loginUser } from "../../actions/authActions";
 import classnames from "classnames";
+import API from "../../utils/API"
 
 class Login extends Component {
   constructor() {
@@ -11,6 +12,7 @@ class Login extends Component {
     this.state = {
       username: "",
       password: "",
+      location: "",
       errors: {}
     };
   }
@@ -26,7 +28,7 @@ class Login extends Component {
     if (nextProps.auth.isAuthenticated) {
       this.props.history.push("/dashboard"); // push user to dashboard when they login
     }
-if (nextProps.errors) {
+    if (nextProps.errors) {
       this.setState({
         errors: nextProps.errors
       });
@@ -35,14 +37,22 @@ if (nextProps.errors) {
 
 onChange = e => {
     this.setState({ [e.target.id]: e.target.value });
+    API.locationLookUp()
+      .then(res=> 
+        this.setState({ location: res.data.city + ", " + res.data.region_code })  
+      )
   };
 onSubmit = e => {
     e.preventDefault();
-const userData = {
+
+    const userData = {
       username: this.state.username,
-      password: this.state.password
-    };
-this.props.loginUser(userData); // since we handle the redirect within our component, we don't need to pass in this.props.history as a parameter
+      password: this.state.password,
+      location: this.state.location
+    }; 
+
+    this.props.loginUser(userData); // since we handle the redirect within our component, we don't need to pass in this.props.history as a parameter
+    console.log(userData)
   };
 render() {
     const { errors } = this.state;

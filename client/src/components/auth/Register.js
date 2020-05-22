@@ -4,6 +4,8 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { registerUser } from "../../actions/authActions";
 import classnames from "classnames";
+import API from "../../utils/API"
+
 class Register extends Component {
   constructor() {
     super();
@@ -11,6 +13,7 @@ class Register extends Component {
       username: "",
       password: "",
       password2: "",
+      location: "",
       errors: {}
     };
   }
@@ -30,15 +33,21 @@ class Register extends Component {
   }
 onChange = e => {
     this.setState({ [e.target.id]: e.target.value });
+    API.locationLookUp()
+    .then(res => 
+      this.setState({ location: res.data.city + ", " + res.data.region_code })  
+    )
   };
 onSubmit = e => {
     e.preventDefault();
 const newUser = {
       username: this.state.username,
       password: this.state.password,
-      password2: this.state.password2
+      password2: this.state.password2,
+      location: this.state.location
     };
 this.props.registerUser(newUser, this.props.history); 
+console.log(newUser)
   };
 render() {
     const { errors } = this.state;
