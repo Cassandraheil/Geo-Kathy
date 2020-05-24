@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import { registerUser } from "../../actions/authActions";
 import classnames from "classnames";
 import API from "../../utils/API"
+import "./register.css"
 
 class Register extends Component {
   constructor() {
@@ -24,6 +25,7 @@ class Register extends Component {
       this.props.history.push("/dashboard");
     }
   }
+
   componentWillReceiveProps(nextProps) {
     if (nextProps.errors) {
       this.setState({
@@ -31,34 +33,37 @@ class Register extends Component {
       });
     }
   }
-onChange = e => {
+
+  onChange = e => {
     this.setState({ [e.target.id]: e.target.value });
     API.locationLookUp()
     .then(res => 
       this.setState({ location: res.data.city + ", " + res.data.region_code })  
     )
   };
-onSubmit = e => {
+
+  onSubmit = e => {
     e.preventDefault();
-const newUser = {
+    const newUser = {
       username: this.state.username,
       password: this.state.password,
       password2: this.state.password2,
       location: this.state.location
     };
-this.props.registerUser(newUser, this.props.history); 
-console.log(newUser)
+    this.props.registerUser(newUser, this.props.history); 
+    console.log(newUser)
   };
-render() {
+
+  render() {
     const { errors } = this.state;
-return (
+    return (
       <div className="container">
         <div className="row">
           <div className="col s8 offset-s2">
-            <Link to="/" className="btn-flat waves-effect">
-              <i className="material-icons left">keyboard_backspace</i> Back to
+            {/* <Link to="/" className="btn-flat waves-effect">
+              Back to
               home
-            </Link>
+            </Link> */}
             <div className="col s12" style={{ paddingLeft: "11.250px" }}>
               <h4>
                 <b>Register</b> below
@@ -74,6 +79,7 @@ return (
                   value={this.state.username}
                   error={errors.name}
                   id="username"
+                  placeholder="username"
                   type="text"
                   className={classnames("", {
                     invalid: errors.name
@@ -86,9 +92,10 @@ return (
                 <input
                   onChange={this.onChange}
                   value={this.state.password}
-                  error={errors.password}
+                  error= {errors.password}
                   id="password"
                   type="password"
+                  placeholder="password"
                   className={classnames("", {
                     invalid: errors.password
                   })}
@@ -102,6 +109,7 @@ return (
                   value={this.state.password2}
                   error={errors.password2}
                   id="password2"
+                  placeholder="password"
                   type="password"
                   className={classnames("", {
                     invalid: errors.password2
