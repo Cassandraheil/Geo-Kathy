@@ -8,14 +8,17 @@ import {
 } from "./types";
 // Register User
 export const registerUser = (userData, history) => dispatch => {
+  console.log("history:", history)
   axios
     .post("/api/users/register", userData)
     .then(res => history.push("/login")) // re-direct to login on successful register
-    .catch(err =>
+    .catch(err =>{
+      console.log("in catch")
       dispatch({
         type: GET_ERRORS,
         payload: err.response.data
       })
+    }
     );
 };
 // Login - get user token

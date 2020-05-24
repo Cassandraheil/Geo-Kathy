@@ -18,7 +18,12 @@ const postSchema = new Schema({
   date: { 
       type: Date, 
       default: Date.now
+  },
+  vote: {
+    type: Number,
+    default: 0
   }
+
 });
 
 const Post = mongoose.model("Post", postSchema);
