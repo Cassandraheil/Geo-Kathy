@@ -7,6 +7,7 @@ import "./style.css";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
+import "./style.css";
 const Moment = require("moment");
 
 class Home extends Component {
@@ -45,6 +46,11 @@ class Home extends Component {
         this.setState({ author: res.data.username })  
       )
   }
+
+  onLogoutClick = e => {
+    e.preventDefault();
+    this.props.logoutUser();
+  };
 
   loadPosts = () => {
     API.locationLookUp()
@@ -147,8 +153,8 @@ render() {
       >
         Logout
       </button>
-        <h4>Temp High: {this.state.weather.min}</h4>
-        <h4>Temp Low: {this.state.weather.max}</h4>
+        <h4>Temp High: {this.state.weather.max}</h4>
+        <h4>Temp Low: {this.state.weather.min}</h4>
 
       <Row>
         <Col size="md-12">
