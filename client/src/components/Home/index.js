@@ -37,15 +37,15 @@ class Home extends Component {
   componentDidMount() {
     console.log("component did mount")
     this.loadPosts();
-    this.getUser(); 
+    // this.getUser(); 
   }
 
-  getUser = () => {
-    API.getUser(this.props.auth.user.id)
-      .then(res => 
-        this.setState({ author: res.data.username })  
-      )
-  }
+  // getUser = () => {
+  //   API.getUser(this.props.auth.user.id)
+  //     .then(res => 
+  //       this.setState({ author: res.data.username })  
+  //     )
+  // }
 
   onLogoutClick = e => {
     e.preventDefault();
