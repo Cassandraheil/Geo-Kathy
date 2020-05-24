@@ -6,7 +6,6 @@ import { Input, TextArea, FormBtn } from "../Form";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
-
 import "./style.css";
 const Moment = require("moment");
 
@@ -24,13 +23,26 @@ class Home extends Component {
     weather: {
       min: "",
       max: ""
-    }
+    },
+    user: ""
+  };
+
+  onLogoutClick = event => {
+    event.preventDefault();
+    this.props.logoutUser();
   };
 
   componentDidMount() {
     console.log("component did mount")
     this.loadPosts();
-    this.updateUser(); 
+    this.getUser(); 
+  }
+
+  getUser = () => {
+    API.getUser(this.props.auth.user.id)
+      .then(res => 
+        this.setState({ author: res.data.username })  
+      )
   }
 
   onLogoutClick = e => {
@@ -46,16 +58,10 @@ class Home extends Component {
         this.setState({ coordinates: {lat: res.data.latitude, lon: res.data.longitude}})
         API.getPosts(this.state.location)
           .then(res =>
-            this.setState({ posts: res.data, body: "", author: "" }),
+            this.setState({ posts: res.data, body: ""}),
           ).catch(err => console.log(err));
         })
       };
-
-  updateUser = () => {
-    // API.updateLocation(userId, location)    
-
-
-  }
 
   loadWeather = () => {
     console.log(this.state.coordinates)
@@ -84,7 +90,6 @@ handleInputChange = event => {
   this.setState({
     [name]: value
   });
-  console.log("handleInputChange value: " + this.state.author)
   console.log(this.state.body)
 };
 
@@ -92,7 +97,7 @@ handleInputChange = event => {
 handleFormSubmit = event => {
   event.preventDefault();
   console.log("in handle form submit")
-  if (this.state.body && this.state.author) {
+  if (this.state.body) {
     API.savePost({
       body: this.state.body,
       author: this.state.author,
@@ -115,20 +120,21 @@ weatherClick = event => {
 }
 
 render() {
+  // const { user } = this.props.auth
   return (
     <Container fluid>
-       <button
-              style={{
-                width: "150px",
-                borderRadius: "3px",
-                letterSpacing: "1.5px",
-                marginTop: "1rem"
-              }}
-              onClick={this.onLogoutClick}
-              className="btn btn-large waves-effect waves-light hoverable blue accent-3"
-            >
-              Logout
-            </button>
+      <button
+        style={{
+          width: "150px",
+          borderRadius: "3px",
+          letterSpacing: "1.5px",
+          marginTop: "1rem"
+        }}
+        onClick={this.onLogoutClick}
+        className="btn btn-large waves-effect waves-light hoverable blue accent-3"
+      >
+        Logout
+      </button>
         <h4>Temp High: {this.state.weather.max}</h4>
         <h4>Temp Low: {this.state.weather.min}</h4>
 
@@ -140,12 +146,12 @@ render() {
           <form>
           <div className="card mt-4">
       <div className="card-header">
-            <Input
+            {/* <Input
               value={this.state.author}
               onChange={this.handleInputChange}
               name="author"
               placeholder="Author (required)"
-            />
+            /> */}
             <TextArea
               value={this.state.body}
               onChange={this.handleInputChange}
@@ -154,7 +160,7 @@ render() {
             />
          
             <FormBtn
-              disabled={!(this.state.author && this.state.body)}
+              disabled={!(this.state.body)}
               onClick={this.handleFormSubmit}
             >
               Submit Post
@@ -233,10 +239,18 @@ Home.propTypes = {
 const mapStateToProps = state => ({
   auth: state.auth
 });
+<<<<<<< HEAD
 export default connect(
   mapStateToProps,
   { logoutUser }
 )(Home);
+=======
+
+export default connect(
+  mapStateToProps,
+  { logoutUser }
+  )(Home);
+>>>>>>> ba084d445cf29ee2e578ebe52466f29c330e5474
 
 // {this.state.restaurants.map((restaurant, index)=> (
 //   <ListItem key={"restaurant" + index}>
