@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import API from "../../utils/API";
 import { Col, Row, Container } from "../Grid";
 import { List, ListItem } from "../List";
-import {TextArea, FormBtn } from "../Form";
+import {Input, TextArea, FormBtn } from "../Form";
 import "./style.css";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
@@ -161,12 +161,12 @@ render() {
           <form>
           <div className="card mt-4">
       <div className="card-header">
-            <Input
+            {/* <Input
               value={this.state.author}
               onChange={this.handleInputChange}
               name="author"
               placeholder="Author (required)"
-            />
+            /> */}
             <TextArea
               value={this.state.body}
               onChange={this.handleInputChange}
@@ -260,8 +260,8 @@ export default connect(
   mapStateToProps,
   { logoutUser }
   )(Home);
-export default connect(
-  mapStateToProps,
-  { logoutUser }
-)(Home);
+// export default connect(
+//   mapStateToProps,
+//   { logoutUser }
+// )(Home);
                
