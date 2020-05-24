@@ -29,6 +29,7 @@ class Home extends Component {
 
   onLogoutClick = event => {
     event.preventDefault();
+    console.log("the user", this.state.author)
     this.props.logoutUser();
   };
 
@@ -189,7 +190,7 @@ render() {
                     <h3>{post.body}</h3>
                     <p>Location: {post.location} Date: {Moment(post.date).format('MMMM Do YYYY, h:mm a')}</p>
                     <p> Vote: {post.vote} 
-              <i onClick={()=>(this.voteClick(post._id))} id={post._id} class="fas fa-angle-double-up"> </i>
+             <h2> <i onClick={()=>(this.voteClick(post._id))} id={post._id} class="fas fa-angle-double-up"> </i></h2>
               {/* <i onClick={this.voteClick} id={post._id} class="fas fa-angle-double-down"> </i> */}
               </p>
 
