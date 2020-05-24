@@ -37,6 +37,7 @@ class Home extends Component {
   componentDidMount() {
     console.log("component did mount")
     this.loadPosts();
+    // this.loadRestaurants();
     // this.getUser(); 
   }
 
@@ -58,34 +59,46 @@ class Home extends Component {
         console.log("API locationlookup res", res)
         this.setState({ location: res.data.city + ", " + res.data.region_code })
         this.setState({ coordinates: {lat: res.data.latitude, lon: res.data.longitude}})
+        this.setState({ restaurants: "" })
         API.getPosts(this.state.location)
           .then(res =>
             this.setState({ posts: res.data, body: "", author: "", vote: "" }),
           ).catch(err => console.log(err));
-        })
-      };
-
-  loadWeather = () => {
-    console.log(this.state.coordinates)
-    API.getWeather(this.state.coordinates)
-      .then(res => {
-        console.log("loadWeather res return: ", res);
-        this.setState({ weather: {min: res.data.minTemp, max: res.data.maxTemp} })
-        console.log("weather state: ", this.state.weather)
+        API.getWeather(this.state.coordinates)
+          .then(res => {
+            console.log("loadWeather res return: ", res);
+            this.setState({ weather: {min: res.data.minTemp, max: res.data.maxTemp} })
+            console.log("weather state: ", this.state.weather)
+          })
+        API.yelpCall(this.state.location)
+          .then(res => {
+            console.log("loadRestaurants res return: ", res);
+            this.setState({ restaurants: res.data })
+          })
       })
-  }
+  };
+
+  // loadWeather = () => {
+  //   console.log(this.state.coordinates)
+  //   API.getWeather(this.state.coordinates)
+  //     .then(res => {
+  //       console.log("loadWeather res return: ", res);
+  //       this.setState({ weather: {min: res.data.minTemp, max: res.data.maxTemp} })
+  //       console.log("weather state: ", this.state.weather)
+  //     })
+  // }
 
 
 
-  loadRestaurants = () => {
-    console.log("API.yelpCall: ", this.state.location)
-    API.yelpCall(this.state.location)
-      .then(res => {
-        console.log("loadRestaurants res return: ", res);
-        this.setState({ restaurants: res.data })
-      })
-    console.log("restaurants state: ", this.state.restaurants)
-  }
+  // loadRestaurants = () => {
+  //   console.log("API.yelpCall: ", this.state.location)
+  //   API.yelpCall(this.state.location)
+  //     .then(res => {
+  //       console.log("loadRestaurants res return: ", res);
+  //       this.setState({ restaurants: res.data })
+  //     })
+  //   console.log("restaurants state: ", this.state.restaurants)
+  // }
 
 handleInputChange = event => {
   const { name, value } = event.target;
@@ -109,16 +122,16 @@ handleFormSubmit = event => {
   }
 };
 
-locationClick = event => {
-  event.preventDefault();
-  this.loadRestaurants();
-}
+// locationClick = event => {
+//   event.preventDefault();
+//   this.loadRestaurants();
+// }
 
-weatherClick = event => {
-  event.preventDefault();
-  console.log("coordinates in location click: ", this.state.coordinates)
-  this.loadWeather();
-}
+// weatherClick = event => {
+//   event.preventDefault();
+//   console.log("coordinates in location click: ", this.state.coordinates)
+//   this.loadWeather();
+// }
 
 voteClick = (id) => {
   // for (var j=0; j<this.state.post[j].length; j++){}  ---remember to wrap around everything
@@ -161,12 +174,12 @@ render() {
           <form>
           <div className="card mt-4">
       <div className="card-header">
-            {/* <Input
+            <Input
               value={this.state.author}
               onChange={this.handleInputChange}
               name="author"
               placeholder="Author (required)"
-            /> */}
+            />
             <TextArea
               value={this.state.body}
               onChange={this.handleInputChange}
@@ -185,8 +198,8 @@ render() {
           </form>
         </Col>
         <Col size="md-12 sm-12">
-          <button onClick={this.locationClick}>Location</button>
-          <button onClick={this.weatherClick}>Weather</button>
+          {/* <button onClick={this.locationClick}>Location</button> */}
+          {/* <button onClick={this.weatherClick}>Weather</button> */}
           <h2>Posts</h2>
           {this.state.posts.length ? (
             <List>

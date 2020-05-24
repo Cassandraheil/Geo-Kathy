@@ -12,6 +12,7 @@ module.exports = {
         categories: "restaurant"
       }})
     .then(function(res) {
+        restaurantsInArea = []
         for (var i=0; i< res.data.businesses.length; i++) {
             var data = res.data.businesses[i];
             restaurantsInArea.push({
