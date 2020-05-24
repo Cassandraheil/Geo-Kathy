@@ -3,6 +3,10 @@ import API from "../../utils/API";
 import { Col, Row, Container } from "../Grid";
 import { List, ListItem } from "../List";
 import { Input, TextArea, FormBtn } from "../Form";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { logoutUser } from "../../actions/authActions";
+
 import "./style.css";
 const Moment = require("moment");
 
@@ -28,6 +32,11 @@ class Home extends Component {
     this.loadPosts();
     this.updateUser(); 
   }
+
+  onLogoutClick = e => {
+    e.preventDefault();
+    this.props.logoutUser();
+  };
 
   loadPosts = () => {
     API.locationLookUp()
@@ -108,6 +117,18 @@ weatherClick = event => {
 render() {
   return (
     <Container fluid>
+       <button
+              style={{
+                width: "150px",
+                borderRadius: "3px",
+                letterSpacing: "1.5px",
+                marginTop: "1rem"
+              }}
+              onClick={this.onLogoutClick}
+              className="btn btn-large waves-effect waves-light hoverable blue accent-3"
+            >
+              Logout
+            </button>
         <h4>Temp High: {this.state.weather.max}</h4>
         <h4>Temp Low: {this.state.weather.min}</h4>
 
@@ -204,7 +225,18 @@ render() {
 }
 }
 
-export default Home;
+// export default Home;
+Home.propTypes = {
+  logoutUser: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired
+};
+const mapStateToProps = state => ({
+  auth: state.auth
+});
+export default connect(
+  mapStateToProps,
+  { logoutUser }
+)(Home);
 
 // {this.state.restaurants.map((restaurant, index)=> (
 //   <ListItem key={"restaurant" + index}>
