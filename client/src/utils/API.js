@@ -17,15 +17,18 @@ export default {
   savePost: function (postData) {
     return axios.post("/api/posts", postData);
   },
+  updatePost: function(postID){
+    return axios.put("api/posts/"+postID)
+  },
   saveUser: function (userData) {
     return axios.post("/api/users", userData);
   },
   searchUser: function(userName) {
     return axios.get("api/users/"+userName)
   },
-  // getUser: function(userID) {
-  //   return axios.post("api/users/" + userID)
-  // }
+  getUser: function(userID) {
+    return axios.post("api/users/" + userID)
+  }
   //updateLocation: function(userID, location) {
     // return axios.put("api/NewRoute", { userLocation: location, userID })
   //}

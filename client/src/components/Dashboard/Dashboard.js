@@ -17,7 +17,7 @@ class Dashboard extends Component {
         <div className="row">
           <div className="col s12 center-align">
             <h4>
-              <button onClick={() => {this.getUser(user.id)}}>Get User</button>
+              {/* <button onClick={() => {this.getUser(user.id)}}>Get User</button> */}
               {/* <b>Hey there,</b> {user.username} */}
               <p className="flow-text grey-text text-darken-1">
                 You are logged into a full-stack{" "}

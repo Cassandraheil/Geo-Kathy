@@ -10,5 +10,8 @@ router.route("/")
 router.route("/:location")
   .get(postsController.findByLocation)
 
+router.route("/:id")
+ .put(postsController.update)
+
 
 module.exports = router;
