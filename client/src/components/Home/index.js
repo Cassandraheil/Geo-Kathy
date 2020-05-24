@@ -30,7 +30,6 @@ class Home extends Component {
 
   onLogoutClick = event => {
     event.preventDefault();
-    console.log("the user", this.state.author)
     this.props.logoutUser();
   };
 
@@ -38,15 +37,16 @@ class Home extends Component {
     console.log("component did mount")
     this.loadPosts();
     // this.loadRestaurants();
-    // this.getUser(); 
+    this.getUser(); 
   }
 
-  // getUser = () => {
-  //   API.getUser(this.props.auth.user.id)
-  //     .then(res => 
-  //       this.setState({ author: res.data.username })  
-  //     )
-  // }
+  getUser = () => {
+    console.log(this.props.auth.user.id)
+    API.getUser(this.props.auth.user.id)
+      .then(res => 
+          this.setState({ user: res.data.username })
+        )
+  }
 
   onLogoutClick = e => {
     e.preventDefault();
@@ -100,27 +100,28 @@ class Home extends Component {
   //   console.log("restaurants state: ", this.state.restaurants)
   // }
 
-handleInputChange = event => {
-  const { name, value } = event.target;
-  this.setState({
-    [name]: value
-  });
-};
+  handleInputChange = event => {
+    const { name, value } = event.target;
+    this.setState({
+      [name]: value
+    });
+  };
 
 
-handleFormSubmit = event => {
-  event.preventDefault();
-  console.log("in handle form submit")
-  if (this.state.body) {
-    API.savePost({
-      body: this.state.body,
-      author: this.state.author,
-      location: this.state.location
-    })
-      .then(res => this.loadPosts(), console.log("post was saved"))
-      .catch(err => console.log(err));
-  }
-};
+  handleFormSubmit = event => {
+    event.preventDefault();
+    this.getUser();
+    console.log("in handle form submit")
+    if (this.state.body) {
+      API.savePost({
+        body: this.state.body,
+        author: this.state.user,
+        location: this.state.location
+      })
+        .then(res => this.loadPosts(), console.log("post was saved"))
+        .catch(err => console.log(err));
+    }
+  };
 
 // locationClick = event => {
 //   event.preventDefault();
@@ -133,25 +134,24 @@ handleFormSubmit = event => {
 //   this.loadWeather();
 // }
 
-voteClick = (id) => {
-  // for (var j=0; j<this.state.post[j].length; j++){}  ---remember to wrap around everything
-  // if (id === this.state.post[j]){}     ---remember to wrap around everything
-  // for (var i=0; i<this.state.post[j].vote[i].length; i++){}     ---remember to wrap around everything
-  // if (username--what is passed in voteclick-- === this.state.post[j].vote[i]){
-  //   console.log("already voted")
-  // }
-  console.log("user", this.state.user)
-  API.updatePost(id)
-  .then(res => {
-    console.log("voteclick res", res.data)
-    this.loadPosts()
+  voteClick = (id) => {
+    // for (var j=0; j<this.state.post[j].length; j++){}  ---remember to wrap around everything
+    // if (id === this.state.post[j]){}     ---remember to wrap around everything
+    // for (var i=0; i<this.state.post[j].vote[i].length; i++){}     ---remember to wrap around everything
+    // if (username--what is passed in voteclick-- === this.state.post[j].vote[i]){
+    //   console.log("already voted")
+    // }
+    console.log("user", this.state.user)
+    API.updatePost(id)
+    .then(res => {
+      console.log("voteclick res", res.data)
+      this.loadPosts()
+    })
   }
- )
-}
 
 
 render() {
-  // const { user } = this.props.auth
+  const { user } = this.props.auth
   return (
     <Container fluid>
       <button
@@ -174,12 +174,12 @@ render() {
           <form>
           <div className="card mt-4">
       <div className="card-header">
-            <Input
+            {/* <Input
               value={this.state.author}
               onChange={this.handleInputChange}
               name="author"
-              placeholder="Author (required)"
-            />
+              placeholder={this.state.user}
+            /> */}
             <TextArea
               value={this.state.body}
               onChange={this.handleInputChange}
@@ -273,8 +273,5 @@ export default connect(
   mapStateToProps,
   { logoutUser }
   )(Home);
-// export default connect(
-//   mapStateToProps,
-//   { logoutUser }
-// )(Home);
+
                
