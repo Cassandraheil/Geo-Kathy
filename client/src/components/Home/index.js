@@ -3,10 +3,10 @@ import API from "../../utils/API";
 import { Col, Row, Container } from "../Grid";
 import { List, ListItem } from "../List";
 import { Input, TextArea, FormBtn } from "../Form";
-import "./style.css";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
+import "./style.css";
 const Moment = require("moment");
 
 class Home extends Component {
@@ -44,6 +44,11 @@ class Home extends Component {
         this.setState({ author: res.data.username })  
       )
   }
+
+  onLogoutClick = e => {
+    e.preventDefault();
+    this.props.logoutUser();
+  };
 
   loadPosts = () => {
     API.locationLookUp()
@@ -130,8 +135,8 @@ render() {
       >
         Logout
       </button>
-        <h4>Temp High: {this.state.weather.min}</h4>
-        <h4>Temp Low: {this.state.weather.max}</h4>
+        <h4>Temp High: {this.state.weather.max}</h4>
+        <h4>Temp Low: {this.state.weather.min}</h4>
 
       <Row>
         <Col size="md-12">
@@ -234,11 +239,18 @@ Home.propTypes = {
 const mapStateToProps = state => ({
   auth: state.auth
 });
+<<<<<<< HEAD
+export default connect(
+  mapStateToProps,
+  { logoutUser }
+)(Home);
+=======
 
 export default connect(
   mapStateToProps,
   { logoutUser }
   )(Home);
+>>>>>>> ba084d445cf29ee2e578ebe52466f29c330e5474
 
 // {this.state.restaurants.map((restaurant, index)=> (
 //   <ListItem key={"restaurant" + index}>
