@@ -161,12 +161,12 @@ render() {
           <form>
           <div className="card mt-4">
       <div className="card-header">
-            {/* <Input
+            <Input
               value={this.state.author}
               onChange={this.handleInputChange}
               name="author"
               placeholder="Author (required)"
-            /> */}
+            />
             <TextArea
               value={this.state.body}
               onChange={this.handleInputChange}
@@ -260,5 +260,8 @@ export default connect(
   mapStateToProps,
   { logoutUser }
   )(Home);
-
-                 
+export default connect(
+  mapStateToProps,
+  { logoutUser }
+)(Home);
+               
