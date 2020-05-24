@@ -108,8 +108,8 @@ weatherClick = event => {
 render() {
   return (
     <Container fluid>
-        <h4>Temp High: {this.state.weather.min}</h4>
-        <h4>Temp Low: {this.state.weather.max}</h4>
+        <h4>Temp High: {this.state.weather.max}</h4>
+        <h4>Temp Low: {this.state.weather.min}</h4>
 
       <Row>
         <Col size="md-12">
