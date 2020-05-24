@@ -35,15 +35,15 @@ class Home extends Component {
   componentDidMount() {
     console.log("component did mount")
     this.loadPosts();
-    this.getUser(); 
+    // this.getUser(); 
   }
 
-  getUser = () => {
-    API.getUser(this.props.auth.user.id)
-      .then(res => 
-        this.setState({ author: res.data.username })  
-      )
-  }
+  // getUser = () => {
+  //   API.getUser(this.props.auth.user.id)
+  //     .then(res => 
+  //       this.setState({ author: res.data.username })  
+  //     )
+  // }
 
   onLogoutClick = e => {
     e.preventDefault();
@@ -58,7 +58,7 @@ class Home extends Component {
         this.setState({ coordinates: {lat: res.data.latitude, lon: res.data.longitude}})
         API.getPosts(this.state.location)
           .then(res =>
-            this.setState({ posts: res.data, body: ""}),
+            this.setState({ posts: res.data, author: "", body: ""}),
           ).catch(err => console.log(err));
         })
       };
@@ -146,12 +146,12 @@ render() {
           <form>
           <div className="card mt-4">
       <div className="card-header">
-            {/* <Input
+            <Input
               value={this.state.author}
               onChange={this.handleInputChange}
               name="author"
               placeholder="Author (required)"
-            /> */}
+            />
             <TextArea
               value={this.state.body}
               onChange={this.handleInputChange}
@@ -239,18 +239,10 @@ Home.propTypes = {
 const mapStateToProps = state => ({
   auth: state.auth
 });
-<<<<<<< HEAD
 export default connect(
   mapStateToProps,
   { logoutUser }
 )(Home);
-=======
-
-export default connect(
-  mapStateToProps,
-  { logoutUser }
-  )(Home);
->>>>>>> ba084d445cf29ee2e578ebe52466f29c330e5474
 
 // {this.state.restaurants.map((restaurant, index)=> (
 //   <ListItem key={"restaurant" + index}>
