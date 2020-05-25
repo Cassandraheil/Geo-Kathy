@@ -27,7 +27,7 @@ export default {
     return axios.get("api/users/"+userName)
   },
   getUser: function(userID) {
-    return axios.post("api/users/" + userID)
+    return axios.post("api/users/info/" + userID)
   }
   //updateLocation: function(userID, location) {
     // return axios.put("api/NewRoute", { userLocation: location, userID })

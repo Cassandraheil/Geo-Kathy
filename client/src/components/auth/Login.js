@@ -36,14 +36,15 @@ class Login extends Component {
     }
   }
 
-onChange = e => {
+  onChange = e => {
     this.setState({ [e.target.id]: e.target.value });
     API.locationLookUp()
       .then(res=> 
         this.setState({ location: res.data.city + ", " + res.data.region_code })  
       )
   };
-onSubmit = e => {
+
+  onSubmit = e => {
     e.preventDefault();
 
     const userData = {
@@ -55,9 +56,10 @@ onSubmit = e => {
     this.props.loginUser(userData); // since we handle the redirect within our component, we don't need to pass in this.props.history as a parameter
     console.log(userData)
   };
+
 render() {
     const { errors } = this.state;
-return (
+    return (
       <div className="container">
         <Jumbotron/>
         <div className="row">

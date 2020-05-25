@@ -7,6 +7,12 @@ module.exports = {
           .then(dbModel => res.json(dbModel))
           .catch(err => res.status(422).json(err));
     },
+    get: function(req, res) {
+        console.log(req.params)
+        db.User
+            .findById({ _id: req.params.id })
+            .then(dbModel => res.json(dbModel))
+    }
     // update: function(req, res) {
     //     console.log("usersController req.params.id: ", req.params.id)
     //     console.log(req.params)
@@ -16,6 +22,6 @@ module.exports = {
     //         // res.json(dbModel)
     //         console.log(dbModel)
     //         )
-    //     //   .catch(err => res.status(422).json(err));
+    //       .catch(err => res.status(422).json(err));
     // }
 }

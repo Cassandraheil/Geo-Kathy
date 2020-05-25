@@ -284,7 +284,7 @@ class Home extends Component {
 
        
         </Row>
-        </Container>
+ </Container>
       </Container>
     );
   }

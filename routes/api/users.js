@@ -5,7 +5,10 @@ const db = require("../../models");
 router.route("/")
   .post(userController.create);
 
-// router.route("/:id")
+
+router.route("/info/:id")
+  .post(userController.get);
+// router.put("/:id")
 //   .post(userController.update);
 
 
