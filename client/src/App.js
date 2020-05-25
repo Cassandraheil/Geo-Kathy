@@ -5,7 +5,6 @@ import setAuthToken from "./utils/setAuthToken";
 import { setCurrentUser, logoutUser } from "./actions/authActions";
 
 import Nav from "./components/Nav"
-import Jumbotron from "./components/Jumbotron";
 import Home from "./components/Home";
 
 // import Login from "./components/Sign-In";
@@ -47,7 +46,6 @@ class App extends Component {
           <div className="App">
           <Nav />
               {/* <Route exact path="/" component={Home} /> */}
-              <Jumbotron />
               {/* <Route exact path="/posts" component={Home} /> */}
               <Route exact path="/register" component={Register} />
               <Route exact path="/login" component={Login} />

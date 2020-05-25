@@ -8,6 +8,8 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
 import "./style.css";
+import JumbotronHome from "../JumbotronHome";
+
 const Moment = require("moment");
 
 class Home extends Component {
@@ -154,6 +156,7 @@ render() {
   // const { user } = this.props.auth
   return (
     <Container fluid>
+      <JumbotronHome/>
       <button
         style={{
           width: "150px",
