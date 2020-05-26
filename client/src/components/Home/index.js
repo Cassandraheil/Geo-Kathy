@@ -8,7 +8,6 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
 import "./style.css";
-
 const Moment = require("moment");
 
 class Home extends Component {
@@ -31,23 +30,22 @@ class Home extends Component {
 
   onLogoutClick = event => {
     event.preventDefault();
-    console.log("the user", this.state.author)
     this.props.logoutUser();
   };
 
   componentDidMount() {
     console.log("component did mount")
     this.loadPosts();
-    // this.loadRestaurants();
-    // this.getUser(); 
+    this.getUser(); 
   }
 
-  // getUser = () => {
-  //   API.getUser(this.props.auth.user.id)
-  //     .then(res => 
-  //       this.setState({ author: res.data.username })  
-  //     )
-  // }
+  getUser = () => {
+    console.log(this.props.auth.user.id)
+    API.getUser(this.props.auth.user.id)
+      .then(res => 
+        this.setState({ user: res.data.username })  
+      )
+  }
 
   onLogoutClick = e => {
     e.preventDefault();
@@ -79,28 +77,6 @@ class Home extends Component {
       })
   };
 
-  // loadWeather = () => {
-  //   console.log(this.state.coordinates)
-  //   API.getWeather(this.state.coordinates)
-  //     .then(res => {
-  //       console.log("loadWeather res return: ", res);
-  //       this.setState({ weather: {min: res.data.minTemp, max: res.data.maxTemp} })
-  //       console.log("weather state: ", this.state.weather)
-  //     })
-  // }
-
-
-
-  // loadRestaurants = () => {
-  //   console.log("API.yelpCall: ", this.state.location)
-  //   API.yelpCall(this.state.location)
-  //     .then(res => {
-  //       console.log("loadRestaurants res return: ", res);
-  //       this.setState({ restaurants: res.data })
-  //     })
-  //   console.log("restaurants state: ", this.state.restaurants)
-  // }
-
   handleInputChange = event => {
     const { name, value } = event.target;
     this.setState({
@@ -115,7 +91,7 @@ class Home extends Component {
     if (this.state.body) {
       API.savePost({
         body: this.state.body,
-        author: this.state.author,
+        author: this.state.user,
         location: this.state.location
       })
         .then(res => this.loadPosts(), console.log("post was saved"))
@@ -123,16 +99,6 @@ class Home extends Component {
     }
   };
 
-  // locationClick = event => {
-  //   event.preventDefault();
-  //   this.loadRestaurants();
-  // }
-
-  // weatherClick = event => {
-  //   event.preventDefault();
-  //   console.log("coordinates in location click: ", this.state.coordinates)
-  //   this.loadWeather();
-  // }
 
   voteClick = (id) => {
     // for (var j=0; j<this.state.post[j].length; j++){}  ---remember to wrap around everything
@@ -166,7 +132,7 @@ class Home extends Component {
 
             </div>
             <div class="col-9">
-              <h1> <strong>Here are my reccomendations for you:</strong></h1>
+              <h1> <strong>Here are my recommendations for you:</strong></h1>
             </div>
             <div class="col-9 scrollbar scrollbar-primary">
 
@@ -226,12 +192,12 @@ class Home extends Component {
             <form>
               <div className="card mt-4">
                 <div className="card-header">
-                  <Input
+                  {/* <Input
                     value={this.state.author}
                     onChange={this.handleInputChange}
                     name="author"
                     placeholder="Author (required)"
-                  />
+                  /> */}
                   <TextArea
                     value={this.state.body}
                     onChange={this.handleInputChange}
@@ -303,8 +269,4 @@ export default connect(
   mapStateToProps,
   { logoutUser }
 )(Home);
-// export default connect(
-//   mapStateToProps,
-//   { logoutUser }
-// )(Home);
 
