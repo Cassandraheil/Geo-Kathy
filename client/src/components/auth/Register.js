@@ -6,6 +6,8 @@ import { registerUser } from "../../actions/authActions";
 import classnames from "classnames";
 import API from "../../utils/API"
 import "./register.css"
+import Jumbotron from "../Jumbotron";
+import JumbotronHome from "../JumbotronHome";
 
 class Register extends Component {
   constructor() {
@@ -58,6 +60,7 @@ class Register extends Component {
     const { errors } = this.state;
     return (
       <div className="container">
+        <Jumbotron/>
         <div className="row">
           <div className="col s8 offset-s2">
             {/* <Link to="/" className="btn-flat waves-effect">
@@ -74,6 +77,13 @@ class Register extends Component {
             </div>
             <form noValidate onSubmit={this.onSubmit}>
               <div className="input-field col s12">
+              <div class="row">
+              <div class="col-sm lablestyle">
+              <label htmlFor="name">Username</label>
+              </div>
+              </div>
+              <div class="row">
+              <div class="col-sm">
                 <input
                   onChange={this.onChange}
                   value={this.state.username}
@@ -85,10 +95,17 @@ class Register extends Component {
                     invalid: errors.name
                   })}
                 />
-                <label htmlFor="name">Username</label>
                 <span className="red-text">{errors.name}</span>
+                </div>
+                </div>
               </div>
-              <div className="input-field col s12">
+             
+              <div className="input-field col s12"> 
+              <div class="row">
+              <div class="col-sm lablestyle">
+              <label htmlFor="password">Password</label>
+</div></div>    <div class="row">
+              <div class="col-sm">
                 <input
                   onChange={this.onChange}
                   value={this.state.password}
@@ -100,10 +117,16 @@ class Register extends Component {
                     invalid: errors.password
                   })}
                 />
-                <label htmlFor="password">Password</label>
+              
                 <span className="red-text">{errors.password}</span>
-              </div>
+              </div>   </div>   </div>
               <div className="input-field col s12">
+              <div class="row">
+              <div class="col-sm lablestyle">
+              <label htmlFor="password2">Confirm Password</label>
+              </div></div>
+              <div class="row">
+              <div class="col-sm">
                 <input
                   onChange={this.onChange}
                   value={this.state.password2}
@@ -115,9 +138,9 @@ class Register extends Component {
                     invalid: errors.password2
                   })}
                 />
-                <label htmlFor="password2">Confirm Password</label>
+            
                 <span className="red-text">{errors.password2}</span>
-              </div>
+              </div>   </div>   </div>
               <div className="col s12" style={{ paddingLeft: "11.250px" }}>
                 <button
                   style={{
@@ -127,7 +150,7 @@ class Register extends Component {
                     marginTop: "1rem"
                   }}
                   type="submit"
-                  className="btn btn-large waves-effect waves-light hoverable blue accent-3"
+                  className="btn btn-outline-dark"
                 >
                   Sign up
                 </button>
