@@ -99,21 +99,37 @@ class Home extends Component {
     }
   };
 
+  // locationClick = event => {
+  //   event.preventDefault();
+  //   this.loadRestaurants();
+  // }
+
+  // weatherClick = event => {
+  //   event.preventDefault();
+  //   console.log("coordinates in location click: ", this.state.coordinates)
+  //   this.loadWeather();
+  // }
 
   voteClick = (id) => {
-    // for (var j=0; j<this.state.post[j].length; j++){}  ---remember to wrap around everything
-    // if (id === this.state.post[j]){}     ---remember to wrap around everything
-    // for (var i=0; i<this.state.post[j].vote[i].length; i++){}     ---remember to wrap around everything
-    // if (username--what is passed in voteclick-- === this.state.post[j].vote[i]){
-    //   console.log("already voted")
-    // }
-    console.log("user", this.state.user)
-    API.updatePost(id)
-      .then(res => {
-        console.log("voteclick res", res.data)
-        this.loadPosts()
+    let hasVoted = false
+    for (let i = 0; i < this.state.posts.length; i++) {
+      const currentPost = this.state.posts[i];
+      if (id === currentPost._id) {
+        for (let j = 0; i < currentPost.vote.length; j++) {
+          if (this.state.user === currentPost.vote[j]) {
+            hasVoted = true
+            return hasVoted;
+          }
+        }
       }
-      )
+    }
+    if (!hasVoted) {
+      API.updatePost(id, this.state.user)
+        .then(res => {
+          console.log("voteclick res", res.data)
+          this.loadPosts()
+        })
+    }
   }
 
 
@@ -233,9 +249,9 @@ class Home extends Component {
                         <h4>{post.author}</h4>
                         <h3>{post.body}</h3>
                         <p>Location: {post.location} Date: {Moment(post.date).format('MMMM Do YYYY, h:mm a')}</p>
-                        <p> Vote: {post.vote}
+                        <p> Vote: {post.vote.length}
                           <h2> <i onClick={() => (this.voteClick(post._id))} id={post._id} class="fas fa-angle-double-up"> </i></h2>
-                          {/* <i onClick={this.voteClick} id={post._id} class="fas fa-angle-double-down"> </i> */}
+                          
                         </p>
 
                       </ListItem>
@@ -269,4 +285,3 @@ export default connect(
   mapStateToProps,
   { logoutUser }
 )(Home);
-

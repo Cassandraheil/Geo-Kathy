@@ -10,7 +10,7 @@ router.route("/")
 router.route("/:location")
   .get(postsController.findByLocation)
 
-router.route("/:id")
+router.route("/:id/:user")
  .put(postsController.update)
 
 
