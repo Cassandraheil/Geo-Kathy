@@ -36,15 +36,14 @@ class Home extends Component {
   componentDidMount() {
     console.log("component did mount")
     this.loadPosts();
-    // this.loadRestaurants();
-    this.getUser();
+    this.getUser(); 
   }
 
   getUser = () => {
     console.log(this.props.auth.user.id)
     API.getUser(this.props.auth.user.id)
-      .then(res =>
-        this.setState({ user: res.data.username })
+      .then(res => 
+        this.setState({ user: res.data.username })  
       )
   }
 
@@ -78,28 +77,6 @@ class Home extends Component {
       })
   };
 
-  // loadWeather = () => {
-  //   console.log(this.state.coordinates)
-  //   API.getWeather(this.state.coordinates)
-  //     .then(res => {
-  //       console.log("loadWeather res return: ", res);
-  //       this.setState({ weather: {min: res.data.minTemp, max: res.data.maxTemp} })
-  //       console.log("weather state: ", this.state.weather)
-  //     })
-  // }
-
-
-
-  // loadRestaurants = () => {
-  //   console.log("API.yelpCall: ", this.state.location)
-  //   API.yelpCall(this.state.location)
-  //     .then(res => {
-  //       console.log("loadRestaurants res return: ", res);
-  //       this.setState({ restaurants: res.data })
-  //     })
-  //   console.log("restaurants state: ", this.state.restaurants)
-  // }
-
   handleInputChange = event => {
     const { name, value } = event.target;
     this.setState({
@@ -110,7 +87,6 @@ class Home extends Component {
 
   handleFormSubmit = event => {
     event.preventDefault();
-    this.getUser();
     console.log("in handle form submit")
     if (this.state.body) {
       API.savePost({
@@ -135,17 +111,12 @@ class Home extends Component {
   // }
 
   voteClick = (id) => {
-    console.log("post here", this.state.posts)
     let hasVoted = false
     for (let i = 0; i < this.state.posts.length; i++) {
-      console.log("first for loop")
       const currentPost = this.state.posts[i];
       if (id === currentPost._id) {
-        console.log("if statement")
         for (let j = 0; i < currentPost.vote.length; j++) {
-          console.log("second for loop", currentPost.vote.length )
           if (this.state.user === currentPost.vote[j]) {
-            console.log("if user eauals user")
             hasVoted = true
             return hasVoted;
           }
@@ -163,9 +134,61 @@ class Home extends Component {
 
 
   render() {
-    const { user } = this.props.auth
+    // const { user } = this.props.auth
     return (
       <Container fluid>
+        <div className="jumbotron mt-4 jcolor scrollbar scrollbar-primary">
+          <div class="row">
+            <div class="col-3">
+              <img alt="Kathy" src="https://i.imgur.com/YRh15Mk.png" class="kathy"></img></div>
+            <div class="col-9">
+              <h1> <strong>Hello! Here's today's weather in your city:</strong></h1>
+              <h4>Temp High: {this.state.weather.max}</h4>
+              <h4>Temp Low: {this.state.weather.min}</h4>
+
+            </div>
+            <div class="col-9">
+              <h1> <strong>Here are my recommendations for you:</strong></h1>
+            </div>
+            <div class="col-9 scrollbar scrollbar-primary">
+
+              {this.state.restaurants.length ? (
+                <List>
+                  {this.state.restaurants.map((restaurant, index) => (
+                    <ListItem key={"restaurant" + index}>
+                      <h3>{restaurant.name}</h3>
+                      <div>
+                        <p>
+                          Rating: {restaurant.rating}    |
+                    Distance: {restaurant.distance.toFixed(2)} miles
+                  </p>
+                      </div>
+                      <p>
+                        {restaurant.address.address1} <br />
+                        {restaurant.address.city}, {restaurant.address.state} {restaurant.address.zip}
+                      </p>
+                      <p>
+                        Phone: {restaurant.phone}
+                      </p>
+                      <img src={restaurant.img} alt="Restaurant" className="rest-img"></img><br></br>
+                      <a href={restaurant.url}>Check {restaurant.name} out on Yelp!</a>
+                      <p>
+                        {restaurant.name} is: {restaurant.isClosed ? "Closed" : "Open"}
+                      </p>
+
+                    </ListItem>
+                  ))}
+                </List>
+              ) : (
+                  <h3>No Results to Display</h3>
+                )}
+            </div>
+          </div>
+        </div>
+
+
+
+
         <button
           style={{
             width: "150px",
@@ -178,8 +201,7 @@ class Home extends Component {
         >
           Logout
       </button>
-        <h4>Temp High: {this.state.weather.max}</h4>
-        <h4>Temp Low: {this.state.weather.min}</h4>
+
 
         <Row>
           <Col size="md-12">
@@ -187,11 +209,11 @@ class Home extends Component {
               <div className="card mt-4">
                 <div className="card-header">
                   {/* <Input
-              value={this.state.author}
-              onChange={this.handleInputChange}
-              name="author"
-              placeholder={this.state.user}
-            /> */}
+                    value={this.state.author}
+                    onChange={this.handleInputChange}
+                    name="author"
+                    placeholder="Author (required)"
+                  /> */}
                   <TextArea
                     value={this.state.body}
                     onChange={this.handleInputChange}
@@ -208,65 +230,43 @@ class Home extends Component {
                 </div>
               </div>
             </form>
-          </Col>
-          <Col size="md-12 sm-12">
-            {/* <button onClick={this.locationClick}>Location</button> */}
-            {/* <button onClick={this.weatherClick}>Weather</button> */}
-            <h2>Posts</h2>
-            {this.state.posts.length ? (
-              <List>
-                {this.state.posts.map(post => (
-                  <ListItem key={post._id}>
-                    <h4>{post.author}</h4>
-                    <h3>{post.body}</h3>
-                    <p>Location: {post.location} Date: {Moment(post.date).format('MMMM Do YYYY, h:mm a')}</p>
-                    <p> Vote: {post.vote.length}
-                      <h2> <i onClick={() => (this.voteClick(post._id))} id={post._id} class="fas fa-angle-double-up"> </i></h2>
-                      {/* <i onClick={this.voteClick} id={post._id} class="fas fa-angle-double-down"> </i> */}
-                    </p>
+          </Col> 
+          </Row>  
 
-                  </ListItem>
-                ))}
-              </List>
-            ) : (
-                <h3>No Results to Display</h3>
-              )}
-          </Col>
+         <Container>
+          <Row>
+           
           <Col size="md-12">
-            <h2>Kathy's Recommendations</h2>
-            {this.state.restaurants.length ? (
-              <List>
-                {this.state.restaurants.map((restaurant, index) => (
-                  <ListItem key={"restaurant" + index}>
-                    <h3>{restaurant.name}</h3>
-                    <div>
-                      <p>
-                        Rating: {restaurant.rating}    |
-                    Distance: {restaurant.distance.toFixed(2)} miles
-                  </p>
-                    </div>
-                    <p>
-                      {restaurant.address.address1} <br />
-                      {restaurant.address.city}, {restaurant.address.state} {restaurant.address.zip}
-                    </p>
-                    <p>
-                      Phone: {restaurant.phone}
-                    </p>
-                    <img src={restaurant.img} alt="Restaurant" className="rest-img"></img>
-                    <a href={restaurant.url}>Check {restaurant.name} out on Yelp!</a>
-                    <p>
-                      {restaurant.name} is: {restaurant.isClosed ? "Closed" : "Open"}
-                    </p>
+            <div className="card mt-4">
+              <div className="card-header">
+                {/* <button onClick={this.locationClick}>Location</button> */}
+                {/* <button onClick={this.weatherClick}>Weather</button> */}
+                <h2>Posts</h2> </div>
+                {this.state.posts.length ? (
+                  <List>
+                    {this.state.posts.map(post => (
+                      <ListItem key={post._id}>
+                        <h4>{post.author}</h4>
+                        <h3>{post.body}</h3>
+                        <p>Location: {post.location} Date: {Moment(post.date).format('MMMM Do YYYY, h:mm a')}</p>
+                        <p> Vote: {post.vote.length}
+                          <h2> <i onClick={() => (this.voteClick(post._id))} id={post._id} class="fas fa-angle-double-up"> </i></h2>
+                          
+                        </p>
 
-                  </ListItem>
-                ))}
-              </List>
-            ) : (
-                <h3>No Results to Display</h3>
-              )}
+                      </ListItem>
+                    ))}
+                  </List>
+
+                ) : (
+                    <h3>No Results to Display</h3>
+                  )}
+              </div>    
           </Col>
-        </Row>
 
+       
+        </Row>
+ </Container>
       </Container>
     );
   }
@@ -285,5 +285,3 @@ export default connect(
   mapStateToProps,
   { logoutUser }
 )(Home);
-
-

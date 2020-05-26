@@ -5,3 +5,15 @@ input {
 label {
     font-size: 18px;
 }
+
+.lablestyle {
+    color: purple;
+    font-weight: bold;
+    padding-top: 1%;
+}
+
+.btn-outline-dark:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open>.dropdown-toggle.btn-primary {
+    color: #fff;
+    background-color:  purple;
+    border-color:  rebeccapurple; /*set the color you want here*/
+}
