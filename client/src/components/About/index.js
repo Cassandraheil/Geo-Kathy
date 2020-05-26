@@ -10,23 +10,32 @@ class About extends Component {
     render() {
         return (
             <Container fluid>
-                <h1>About Geo Kathy</h1>
-                <h4>
-                    One of the most stressful parts about traveling to a new place is making sure you experience all the best parts of that area. With Geo Kathy, you get a local's perspective and can explore your destination the way a local would. 
+                       <div className="jumbotron mt-4 jcolor scrollbar scrollbar-primary">
+          <div class="row">
+            <div class="col-2">
+              <img alt="Kathy" src="https://i.imgur.com/YRh15Mk.png" class="kathy"></img></div>
+            <div class="col-9">
+              <h1> <strong>Welcome to Geo Kathy</strong></h1>
+        
+              <h4>
+                    One of the most stressful parts about traveling to a new place
+                     is making sure you experience all the best parts of that area. With <strong>Geo Kathy</strong>,
+                      you get a local's perspective and can explore your destination the way a local would. 
                 </h4>
                 <h4>
-                    Kathy is currently working on bringing you reviews for the best events and nightlife in your area. Stay tuned!
+                    Kathy is currently working on bringing you reviews for the best 
+                    events and nightlife in your area. Stay tuned!
                 </h4>
-
-                <div>
-                    <h5>Register for an account today to get all the latest and greatest recommendations for your area!</h5> 
+                <h4>Sign up for an account today to get all the latest and greatest recommendations for your area!</h4> 
                         <Link to="/register">Register</Link>
-                </div>
-                <div>
-                    <h5>Already have an account?</h5>
+                        <h4>Already have an account?</h4>
                         <Link to ="/login">Login</Link>
+            </div>
+       
+
+               
                 </div>
-                
+                </div>
             </Container>     
         )
     }
