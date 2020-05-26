@@ -6,6 +6,7 @@ import { setCurrentUser, logoutUser } from "./actions/authActions";
 
 import Nav from "./components/Nav"
 import Home from "./components/Home";
+import About from "./components/About";
 
 // import Login from "./components/Sign-In";
 import Register from "./components/auth/Register";
@@ -45,7 +46,7 @@ class App extends Component {
         <Router>
           <div className="App">
           <Nav />
-              {/* <Route exact path="/" component={Home} /> */}
+              <Route exact path="/" component={About} />
               {/* <Route exact path="/posts" component={Home} /> */}
               <Route exact path="/register" component={Register} />
               <Route exact path="/login" component={Login} />
