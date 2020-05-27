@@ -48,3 +48,11 @@ body{
  display: inline-block;
 
 }
+
+h1 {
+    color: purple;
+}
+
+.review {
+    text-align: center;
+}
