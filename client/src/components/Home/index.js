@@ -142,15 +142,14 @@ class Home extends Component {
             <div class="col-3">
               <img alt="Kathy" src="https://i.imgur.com/YRh15Mk.png" class="kathy"></img></div>
             <div class="col-9">
-              <h1> <strong>Hello! Here's today's weather in your city:</strong></h1>
+              <h1> Hello! Here's today's weather in your city:</h1>
               <h4>Temp High: {this.state.weather.max}</h4>
               <h4>Temp Low: {this.state.weather.min}</h4>
 
-            </div>
-            <div class="col-9">
-              <h1> <strong>Here are my recommendations for you:</strong></h1>
-            </div>
-            <div class="col-9 scrollbar scrollbar-primary">
+         
+          
+              <h1> Here are my recommendations for you:</h1>
+          
 
               {this.state.restaurants.length ? (
                 <List>
@@ -202,6 +201,12 @@ class Home extends Component {
           Logout
       </button>
 
+
+      <Row>
+          <Col size="md-12">
+            <div className="review"><h1>Let others know what you think. Leave a review below!</h1></div>
+          </Col> 
+          </Row>  
 
         <Row>
           <Col size="md-12">
