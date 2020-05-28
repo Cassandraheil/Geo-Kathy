@@ -189,22 +189,6 @@ class Home extends Component {
         </div>
 
 
-
-
-        <button
-          style={{
-            width: "150px",
-            borderRadius: "3px",
-            letterSpacing: "1.5px",
-            marginTop: "1rem"
-          }}
-          onClick={this.onLogoutClick}
-          className="btn btn-large waves-effect waves-light hoverable blue accent-3"
-        >
-          Logout
-      </button>
-
-
       <Row>
           <Col size="md-12">
             <div className="review"><h1>Let others know what you think. Leave a review below!</h1></div>
@@ -216,12 +200,7 @@ class Home extends Component {
             <form>
               <div className="card mt-4">
                 <div className="card-header">
-                  {/* <Input
-                    value={this.state.author}
-                    onChange={this.handleInputChange}
-                    name="author"
-                    placeholder="Author (required)"
-                  /> */}
+                  
                   <TextArea
                     value={this.state.body}
                     onChange={this.handleInputChange}

@@ -1,6 +1,9 @@
 import "./style.css"
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { logoutUser } from "../../actions/authActions";
 
 class Nav extends Component {
   state = {
@@ -16,6 +19,16 @@ class Nav extends Component {
     }
 
     this.setState(newState);
+  };
+
+  onLogoutClick = event => {
+    console.log("word")
+    event.preventDefault();
+    this.props.logoutUser();
+  };
+  onLogoutClick = e => {
+    e.preventDefault();
+    this.props.logoutUser();
   };
 
   toggleNav = () => {
@@ -64,14 +77,63 @@ class Nav extends Component {
                 className={window.location.pathname === "/login" ? "nav-link active" : "nav-link"}
                 to="/login"
               >
-               Login
+                Login
               </Link>
             </li>
-          </ul>
-        </div>
-      </nav>
+            <li>
+              <button
+                style={{
+                  width: "150px",
+                  borderRadius: "3px",
+                  letterSpacing: "1.5px",
+                  marginTop: "1rem"
+                }}
+                onClick={this.onLogoutClick}
+                className="btn btn-large waves-effect waves-light hoverable blue accent-3"
+              >
+                Logout
+            </button>
+            </li>
+            <li className="nav-item">
+              <Link
+                onClick={this.toggleNav}
+                className={window.location.pathname === "/resturants" ? "nav-link active" : "nav-link"}
+                to="/login"
+              >
+                Restaurants
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link
+                onClick={this.toggleNav}
+                className={window.location.pathname === "/nightlife" ? "nav-link active" : "nav-link"}
+                to="/nightlife"
+              >
+                Night Life
+              </Link>
+            </li>
+              </ul>
+              </div>
+        </nav>
     );
   }
 }
- 
-export default Nav;
+
+
+
+Nav.propTypes = {
+          logoutUser: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired
+};
+const mapStateToProps = state => ({
+          auth: state.auth
+});
+
+export default connect(
+  mapStateToProps,
+        { logoutUser}
+)(Nav);
+
+// export default Nav;
+// logout button
+// //dropdown tab connecting to nightlife/ theme paged
