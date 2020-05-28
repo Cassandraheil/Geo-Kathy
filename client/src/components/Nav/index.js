@@ -99,6 +99,15 @@ class Nav extends Component {
                 Night Life
               </Link>
             </li>
+            <li className="nav-item">
+              <Link
+                onClick={this.toggleNav}
+                className={window.location.pathname === "/hotel" ? "nav-link active" : "nav-link"}
+                to="/hotel"
+              >
+               Hotel
+              </Link>
+            </li>
               </ul>
               <button
                 style={{
