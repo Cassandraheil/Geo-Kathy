@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+
 import API from "../../utils/API";
 import { Col, Row, Container } from "../Grid";
 import { List, ListItem } from "../List";
@@ -137,8 +138,9 @@ class Home extends Component {
     // const { user } = this.props.auth
     return (
       <Container fluid>
+       
         <div className="jumbotron mt-4 jcolor scrollbar scrollbar-primary">
-          <div class="row">
+          <div class="row" style={{height: '500px'}}>
             <div class="col-3">
               <img alt="Kathy" src="https://i.imgur.com/YRh15Mk.png" class="kathy"></img></div>
             <div class="col-9">
@@ -148,9 +150,9 @@ class Home extends Component {
 
          
           
-              <h1> Here are my recommendations for you:</h1>
+              <h1> Here are my recommendations for you based on your location:</h1>
           
-
+          
               {this.state.restaurants.length ? (
                 <List>
                   {this.state.restaurants.map((restaurant, index) => (
@@ -181,6 +183,7 @@ class Home extends Component {
               ) : (
                   <h3>No Results to Display</h3>
                 )}
+                
             </div>
           </div>
         </div>

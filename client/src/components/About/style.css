@@ -3,10 +3,6 @@ strong {
     color: purple;
 }
 
-a:hover {
-    color: white;
-}
-
 .btn-outline-dark:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open>.dropdown-toggle.btn-primary {
     color: white;
     background-color:  purple;
