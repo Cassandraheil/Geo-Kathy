@@ -80,20 +80,7 @@ class Nav extends Component {
                 Login
               </Link>
             </li>
-            <li>
-              <button
-                style={{
-                  width: "150px",
-                  borderRadius: "3px",
-                  letterSpacing: "1.5px",
-                  marginTop: "1rem"
-                }}
-                onClick={this.onLogoutClick}
-                className="btn btn-large waves-effect waves-light hoverable blue accent-3"
-              >
-                Logout
-            </button>
-            </li>
+            
             <li className="nav-item">
               <Link
                 onClick={this.toggleNav}
@@ -113,6 +100,19 @@ class Nav extends Component {
               </Link>
             </li>
               </ul>
+              <button
+                style={{
+                  width: "150px",
+                  borderRadius: "3px",
+                  letterSpacing: "1.5px",
+                  marginTop: "1rem",
+                  marginLeft: "900px"
+                }}
+                onClick={this.onLogoutClick}
+                className="btn btn-large waves-effect waves-light hoverable blue accent-3"
+              >
+                Logout
+            </button>
               </div>
         </nav>
     );
