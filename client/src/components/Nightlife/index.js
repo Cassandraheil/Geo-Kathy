@@ -6,6 +6,7 @@ import {Input, TextArea, FormBtn } from "../Form";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
+import "./style.css";
 
 const Moment = require("moment");
 
@@ -105,7 +106,7 @@ class Nightlife extends Component {
     for (let i = 0; i < this.state.posts.length; i++) {
       const currentPost = this.state.posts[i];
       if (id === currentPost._id) {
-        for (let j = 0; i < currentPost.vote.length; j++) {
+        for (let j = 0; j < currentPost.vote.length; j++) {
           if (this.state.user === currentPost.vote[j]) {
             hasVoted = true
             return hasVoted;

@@ -4,18 +4,8 @@ form {
 }
 
 .rest-img {
-    /* height: 30%;
-    width: 30%; */
-    /* height: 100%;
-    width: 100%; */
-    /* object-fit: cover; */
-}
-
-.rest-img2 {
-    margin-top: 8px;
-    height: 60%;
-    width: 60%;
-    object-fit: cover;
+    height: 30%;
+    width: 30%;
 }
 
 a {
@@ -38,7 +28,6 @@ body{
 
  .jumbotron {
     padding: 50px;
-    margin: 20px 60px;
     border: 2px purple solid;
     background-color: #ffffff;
     overflow-y: scroll;
@@ -62,11 +51,6 @@ body{
 
 h1 {
     color: purple;
-}
-
-h2 {
-    color: purple;
-    padding-top: 8px;
 }
 
 .review {
