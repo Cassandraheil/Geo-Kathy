@@ -116,7 +116,7 @@ class Home extends Component {
     for (let i = 0; i < this.state.posts.length; i++) {
       const currentPost = this.state.posts[i];
       if (id === currentPost._id) {
-        for (let j = 0; i < currentPost.vote.length; j++) {
+        for (let j = 0; j < currentPost.vote.length; j++) {
           if (this.state.user === currentPost.vote[j]) {
             hasVoted = true
             return hasVoted;
