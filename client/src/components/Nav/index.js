@@ -103,7 +103,7 @@ class Nav extends Component {
               <Link
                 onClick={this.toggleNav}
                 className={window.location.pathname === "/hotels" ? "nav-link active" : "nav-link"}
-                to="/hotel"
+                to="/hotels"
               >
                Hotels
               </Link>
