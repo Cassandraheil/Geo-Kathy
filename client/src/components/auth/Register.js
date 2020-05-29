@@ -100,6 +100,7 @@ class Register extends Component {
                 </div>
               </div>
              
+              
               <div className="input-field col s12"> 
               <div class="row">
               <div class="col-sm lablestyle">

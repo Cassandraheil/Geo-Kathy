@@ -14,11 +14,17 @@ export default {
   yelpCall: function(location) {
     return axios.post("/api/restaurants", { location })
   },
+  barCall: function(location) {
+    return axios.post("/api/bars", {location})
+  },
+  hotelCall: function(location) {
+    return axios.post("/api/hotels", {location })
+  },
   savePost: function (postData) {
     return axios.post("/api/posts", postData);
   },
-  updatePost: function(postID, user){
-    return axios.put("api/posts/"+postID+"/"+user)
+  updatePost: function(postID){
+    return axios.put("api/posts/"+postID)
   },
   saveUser: function (userData) {
     return axios.post("/api/users", userData);
