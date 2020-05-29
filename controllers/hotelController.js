@@ -12,7 +12,7 @@ module.exports = {
         categories: "hotels"
       }})
     .then(function(res) {
-        eventsInArea = []
+        hotelsInArea = []
         for (var i=0; i< res.data.businesses.length; i++) {
             var data = res.data.businesses[i];
             hotelsInArea.push({
