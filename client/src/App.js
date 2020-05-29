@@ -16,7 +16,7 @@ import Dashboard from "./components/Dashboard/Dashboard";
 import Nightlife from "./components/Nightlife"
 import Hotels from "./components/Hotels";
 
-
+import "./App.css"
 // Redux stuff
 import { Provider } from "react-redux";
 import store from "./store";
