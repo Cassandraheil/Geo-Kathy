@@ -24,7 +24,7 @@ class Register extends Component {
   componentDidMount() {
     // If logged in and user navigates to Register page, should redirect them to dashboard
     if (this.props.auth.isAuthenticated) {
-      this.props.history.push("/dashboard");
+      this.props.history.push("/restaurants");
     }
   }
 
@@ -87,12 +87,12 @@ class Register extends Component {
                 <input
                   onChange={this.onChange}
                   value={this.state.username}
-                  error={errors.name}
+                  error={errors.username}
                   id="username"
                   placeholder="username"
                   type="text"
                   className={classnames("", {
-                    invalid: errors.name
+                    invalid: errors.username
                   })}
                 />
                 <span className="red-text">{errors.name}</span>
