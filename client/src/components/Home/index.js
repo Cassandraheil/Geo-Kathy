@@ -139,6 +139,7 @@ class Home extends Component {
     return (
       <Container fluid>
        <Row>
+         <Col size="md-12">
         <div className="jumbotron mt-4 jcolor scrollbar scrollbar-primary">
           <div className="row" style={{height: '500px'}}>
             <div className="col-5 text-center">
@@ -146,12 +147,12 @@ class Home extends Component {
               <h2> Hello! Here's today's weather in {this.state.location}:</h2>
               <h4>Temp High: {this.state.weather.max} °F</h4>
               <h4>Temp Low: {this.state.weather.min} °F</h4>
-              <h2>Check out some of my local restaurant recommendations on the right!</h2>
+              <h2>Check out some of my local restaurant recommendations!</h2>
             </div>
             <div className="col-7">
           
               {this.state.restaurants.length ? (
-                <List>
+                <List className="scrollbar scrollbar-primary">
                   {this.state.restaurants.map((restaurant, index) => (
                     <ListItem key={"restaurant" + index}>
                       <div className="row">
@@ -171,7 +172,7 @@ class Home extends Component {
                             Phone: {restaurant.phone}
                           </p>
                           <p>
-                            {restaurant.name} is: {restaurant.isClosed ? "Closed" : "Open"}
+                            {restaurant.name} is: <strong> {restaurant.isClosed ? "Closed" : "Open"} </strong>
                           </p>
                         </div>
                         <div className="col-6 px-0 rest-img">
@@ -191,6 +192,7 @@ class Home extends Component {
             </div>
           </div>
         </div>
+        </Col>
       </Row>
 
 
