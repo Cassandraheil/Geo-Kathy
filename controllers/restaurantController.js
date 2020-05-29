@@ -6,7 +6,7 @@ module.exports = {
     console.log(req.body.location);
     axios.get("https://api.yelp.com/v3/businesses/search?location="+ req.body.location, {
       headers: {
-        Authorization: 'Bearer '+ "s26eVOVmND4ugPIyW1wsGPDv-vZIpYFXvHCWCWjhs_kQuldjsxZic9g9yA4eQSK_azDtN6f0rt_dSq36RRL7R_WRmeXFDwBmi96KNcekl-aYnP9lcHxb_BV7VNi6XnYx",
+        Authorization: 'Bearer '+ process.env.YELPKEY,
       },
       params: {
         categories: "restaurants, food, American, Chinese, Soul Food, Italian, burgers, Spanish, pizza"
