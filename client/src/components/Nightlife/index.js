@@ -66,7 +66,7 @@ class Nightlife extends Component {
         API.getWeather(this.state.coordinates)
           .then(res => {
             console.log("loadWeather res return: ", res);
-            this.setState({ weather: {min: res.data.minTemp, max: res.data.maxTemp} })
+            this.setState({ weather: {min: res.data.minTemp.toFixed(0), max: res.data.maxTemp.toFixed(0)} })
             console.log("weather state: ", this.state.weather)
           })
         API.barCall(this.state.location)
@@ -127,56 +127,62 @@ class Nightlife extends Component {
 render() {
     return (
         <Container fluid>
-         
-          <div className="jumbotron mt-4 jcolor scrollbar scrollbar-primary">
-            <div class="row" style={{height: '500px'}}>
-              <div class="col-3">
-                <img alt="Kathy" src="https://i.imgur.com/YRh15Mk.png" class="kathy"></img></div>
-              <div class="col-9">
-                <h1> Hello! Here's today's weather in your city:</h1>
-                <h4>Temp High: {this.state.weather.max}</h4>
-                <h4>Temp Low: {this.state.weather.min}</h4>
-  
-           
-            
-                <h1> Here are my recommendations for you based on your location:</h1>
-            
-            
-                {this.state.bars.length ? (
-                  <List>
-                    {this.state.bars.map((bar, index) => (
-                      <ListItem key={"bar" + index}>
-                        <h3>{bar.name}</h3>
-                        <div>
+        <Row>
+         <Col size="md-12">
+        <div className="jumbotron mt-4 jcolor scrollbar scrollbar-primary">
+          <div className="row" style={{height: '500px'}}>
+            <div className="col-5 text-center">
+              <img alt="Kathy" src="https://i.imgur.com/YRh15Mk.png" class="kathy"></img>
+              <h2> Hello! Here's today's weather in {this.state.location}:</h2>
+              <h4>Temp High: {this.state.weather.max} °F</h4>
+              <h4>Temp Low: {this.state.weather.min} °F</h4>
+              <h2>Check out some of my local nightlife recommendations!</h2>
+            </div>
+            <div className="col-7">
+          
+              {this.state.bars.length ? (
+                <List className="scrollbar scrollbar-primary">
+                  {this.state.bars.map((bar, index) => (
+                    <ListItem key={"bar" + index}>
+                      <div className="row">
+                        <div className="col-6 text-center">
+                          <h3>{bar.name}</h3>
+                          <div>
+                            <p>
+                              Rating: {bar.rating}    |
+                              Distance: {bar.distance.toFixed(2)} miles
+                            </p>
+                          </div>
                           <p>
-                            Rating: {bar.rating}    |
-                      Distance: {bar.distance.toFixed(2)} miles
-                    </p>
+                            {bar.address.address1} <br />
+                            {bar.address.city}, {bar.address.state} {bar.address.zip}
+                          </p>
+                          <p>
+                            Phone: {bar.phone}
+                          </p>
+                          <p>
+                            {bar.name} is: <strong> {bar.isClosed ? "Closed" : "Open"} </strong>
+                          </p>
                         </div>
-                        <p>
-                          {bar.address.address1} <br />
-                          {bar.address.city}, {bar.address.state} {bar.address.zip}
-                        </p>
-                        <p>
-                          Phone: {bar.phone}
-                        </p>
-                        <img src={bar.img} alt="Bar" className="rest-img"></img><br></br>
-                        <a href={bar.url}>Check {bar.name} out on Yelp!</a>
-                        <p>
-                          {bar.name} is: {bar.isClosed ? "Closed" : "Open"}
-                        </p>
-  
-                      </ListItem>
-                    ))}
-                  </List>
-                ) : (
-                    <h3>No Results to Display</h3>
-                  )}
-                  
-              </div>
+                        <div className="col-6 px-0 rest-img">
+                          <img src={bar.img} alt="Bar" className="rest-img2"></img>
+                          {/* <br></br> */}
+                          <div><a href={bar.url}>Check {bar.name} out on Yelp!</a></div>
+                         
+                        </div>  
+                      </div>
+                    </ListItem>
+                  ))}
+                </List>
+              ) : (
+                  <h3>No Results to Display</h3>
+                )}
+                
             </div>
           </div>
-  
+        </div>
+        </Col>
+      </Row>
   
         <Row>
             <Col size="md-12">

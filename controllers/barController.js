@@ -9,7 +9,7 @@ module.exports = {
         Authorization: 'Bearer '+ "s26eVOVmND4ugPIyW1wsGPDv-vZIpYFXvHCWCWjhs_kQuldjsxZic9g9yA4eQSK_azDtN6f0rt_dSq36RRL7R_WRmeXFDwBmi96KNcekl-aYnP9lcHxb_BV7VNi6XnYx",
       },
       params: {
-        categories: "nightlife"
+        categories: "bars, breweries, pubs"
       }})
     .then(function(res) {
         barsInArea = []

@@ -45,7 +45,7 @@ class Nav extends Component {
 
   render() {
     return (
-      <nav className="navbar navbar-expand-lg navbar-light bg-light mb-2">
+      <nav className="navbar navbar-expand-lg navbar-dark bg-dark mb-2">
         <Link className="navbar-brand" to="/">
           Geo Kathy
         </Link>
@@ -118,7 +118,7 @@ class Nav extends Component {
                 //   marginLeft: "900px"
                 // }}
                 onClick={this.onLogoutClick}
-                className="btn btn-large waves-effect waves-light hoverable blue accent-3 logout-btn"
+                className="btn btn-small waves-effect waves-light hoverable blue accent-3 logout-btn"
               >
                 Logout
             </button>
