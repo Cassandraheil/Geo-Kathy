@@ -1,4 +1,14 @@
-.navbar {
+nav {
     border-bottom: 2px;
     border-color: purple;
   }
+
+
+.logout-btn {
+  width: 150px;
+  border-radius: 3px;
+  letter-spacing: 1.5px;
+  position: absolute;
+  right: 10px;
+  /* margin-left: 900px; */
+}
