@@ -130,10 +130,10 @@ class Hotels extends Component {
         <Container fluid>
          
           <div className="jumbotron mt-4 jcolor scrollbar scrollbar-primary">
-            <div class="row" style={{height: '500px'}}>
-              <div class="col-3">
-                <img alt="Kathy" src="https://i.imgur.com/YRh15Mk.png" class="kathy"></img></div>
-              <div class="col-9">
+            <div className="row" style={{height: '500px'}}>
+              <div className="col-3">
+                <img alt="Kathy" src="https://i.imgur.com/YRh15Mk.png" className="kathy"></img></div>
+              <div className="col-9">
                 <h1> Hello! Here's today's weather in your city:</h1>
                 <h4>Temp High: {this.state.weather.max}</h4>
                 <h4>Temp Low: {this.state.weather.min}</h4>
