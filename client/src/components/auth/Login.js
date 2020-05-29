@@ -80,6 +80,54 @@ render() {
             <div className="input-field col s12">
               <div class="row">
               <div class="col-sm lablestyle">
+              <label htmlFor="name">Username</label>
+              </div>
+              </div>
+              <div class="row">
+              <div class="col-sm">
+                <input
+                  onChange={this.onChange}
+                  value={this.state.username}
+                  error={errors.name}
+                  id="username"
+                  placeholder="username"
+                  type="text"
+                  className={classnames("", {
+                    invalid: errors.name
+                  })}
+                />
+                <span className="red-text">{errors.name}</span>
+                </div>
+                </div>
+              </div>
+             
+              
+              <div className="input-field col s12"> 
+              <div class="row">
+              <div class="col-sm lablestyle">
+              <label htmlFor="password">Password</label>
+</div></div>    <div class="row">
+              <div class="col-sm">
+                <input
+                  onChange={this.onChange}
+                  value={this.state.password}
+                  error= {errors.password}
+                  id="password"
+                  type="password"
+                  placeholder="password"
+                  className={classnames("", {
+                    invalid: errors.password
+                  })}
+                />
+              
+                <span className="red-text">{errors.password}</span>
+              </div>   </div>   </div>
+
+
+
+            {/* <div className="input-field col s12">
+              <div class="row">
+              <div class="col-sm lablestyle">
             <label htmlFor="username">Username</label>
             </div>
               </div>
@@ -102,8 +150,8 @@ render() {
               </div></div>
 
               <div className="input-field col s12"> 
-              <div class="row">
-              <div class="col-sm lablestyle">
+                <div class="row">
+                <div class="col-sm lablestyle">
               <label htmlFor="password">Password</label>
               </div></div>
               <div className="input-field">
@@ -122,7 +170,7 @@ render() {
                   {errors.password}
                   {errors.passwordincorrect}
                 </span>
-              </div></div>
+              </div></div> */}
               <div className="input-field col s12"> 
                 <button
                   style={{

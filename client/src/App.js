@@ -13,6 +13,8 @@ import Register from "./components/auth/Register";
 import Login from "./components/auth/Login";
 import PrivateRoute from "./components/private-route/PrivateRoute";
 import Dashboard from "./components/Dashboard/Dashboard";
+import Nightlife from "./components/Nightlife"
+import Hotels from "./components/Hotels";
 
 
 // Redux stuff
@@ -52,6 +54,8 @@ class App extends Component {
               <Route exact path="/login" component={Login} />
             <Switch>
               <PrivateRoute exact path="/dashboard" component={Home} />
+              <PrivateRoute exact path="/nightlife" component={Nightlife} />
+              <PrivateRoute exact path="/hotels" component={Hotels} />
             </Switch>
           </div>
         </Router>
