@@ -1,9 +1,9 @@
-import "./style.css"
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
+import "./style.css"
 
 class Nav extends Component {
   state = {
@@ -68,10 +68,10 @@ class Nav extends Component {
                 className={window.location.pathname === "/" ? "nav-link active" : "nav-link"}
                 to="/"
               >
-                Home
+                About
               </Link>
             </li>
-            <li className="nav-item">
+            {/* <li className="nav-item">
               <Link
                 onClick={this.toggleNav}
                 className={window.location.pathname === "/login" ? "nav-link active" : "nav-link"}
@@ -79,13 +79,13 @@ class Nav extends Component {
               >
                 Login
               </Link>
-            </li>
+            </li> */}
             
             <li className="nav-item">
               <Link
                 onClick={this.toggleNav}
                 className={window.location.pathname === "/resturants" ? "nav-link active" : "nav-link"}
-                to="/login"
+                to="/restaurants"
               >
                 Restaurants
               </Link>
@@ -96,7 +96,7 @@ class Nav extends Component {
                 className={window.location.pathname === "/nightlife" ? "nav-link active" : "nav-link"}
                 to="/nightlife"
               >
-                Night Life
+                Nightlife
               </Link>
             </li>
             <li className="nav-item">
@@ -110,18 +110,19 @@ class Nav extends Component {
             </li>
               </ul>
               <button
-                style={{
-                  width: "150px",
-                  borderRadius: "3px",
-                  letterSpacing: "1.5px",
-                  marginTop: "1rem",
-                  marginLeft: "900px"
-                }}
+                // style={{
+                //   width: "150px",
+                //   borderRadius: "3px",
+                //   letterSpacing: "1.5px",
+                //   marginTop: "1rem",
+                //   marginLeft: "900px"
+                // }}
                 onClick={this.onLogoutClick}
-                className="btn btn-large waves-effect waves-light hoverable blue accent-3"
+                className="btn btn-large waves-effect waves-light hoverable blue accent-3 logout-btn"
               >
                 Logout
             </button>
+
               </div>
         </nav>
     );

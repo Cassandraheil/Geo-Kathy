@@ -67,7 +67,7 @@ class Home extends Component {
         API.getWeather(this.state.coordinates)
           .then(res => {
             console.log("loadWeather res return: ", res);
-            this.setState({ weather: { min: res.data.minTemp, max: res.data.maxTemp } })
+            this.setState({ weather: { min: res.data.minTemp.toFixed(0), max: res.data.maxTemp.toFixed(0) } })
             console.log("weather state: ", this.state.weather)
           })
         API.yelpCall(this.state.location)
@@ -138,45 +138,49 @@ class Home extends Component {
     // const { user } = this.props.auth
     return (
       <Container fluid>
-       
+       <Row>
         <div className="jumbotron mt-4 jcolor scrollbar scrollbar-primary">
-          <div class="row" style={{height: '500px'}}>
-            <div class="col-3">
-              <img alt="Kathy" src="https://i.imgur.com/YRh15Mk.png" class="kathy"></img></div>
-            <div class="col-9">
-              <h1> Hello! Here's today's weather in your city:</h1>
-              <h4>Temp High: {this.state.weather.max}</h4>
-              <h4>Temp Low: {this.state.weather.min}</h4>
-
-         
-          
-              <h1> Here are my recommendations for you based on your location:</h1>
-          
+          <div className="row" style={{height: '500px'}}>
+            <div className="col-5 text-center">
+              <img alt="Kathy" src="https://i.imgur.com/YRh15Mk.png" class="kathy"></img>
+              <h2> Hello! Here's today's weather in {this.state.location}:</h2>
+              <h4>Temp High: {this.state.weather.max} °F</h4>
+              <h4>Temp Low: {this.state.weather.min} °F</h4>
+              <h2>Check out some of my local restaurant recommendations on the right!</h2>
+            </div>
+            <div className="col-7">
           
               {this.state.restaurants.length ? (
                 <List>
                   {this.state.restaurants.map((restaurant, index) => (
                     <ListItem key={"restaurant" + index}>
-                      <h3>{restaurant.name}</h3>
-                      <div>
-                        <p>
-                          Rating: {restaurant.rating}    |
-                    Distance: {restaurant.distance.toFixed(2)} miles
-                  </p>
+                      <div className="row">
+                        <div className="col-6 text-center">
+                          <h3>{restaurant.name}</h3>
+                          <div>
+                            <p>
+                              Rating: {restaurant.rating}    |
+                              Distance: {restaurant.distance.toFixed(2)} miles
+                            </p>
+                          </div>
+                          <p>
+                            {restaurant.address.address1} <br />
+                            {restaurant.address.city}, {restaurant.address.state} {restaurant.address.zip}
+                          </p>
+                          <p>
+                            Phone: {restaurant.phone}
+                          </p>
+                          <p>
+                            {restaurant.name} is: {restaurant.isClosed ? "Closed" : "Open"}
+                          </p>
+                        </div>
+                        <div className="col-6 px-0 rest-img">
+                          <img src={restaurant.img} alt="Restaurant" className="rest-img2"></img>
+                          {/* <br></br> */}
+                          <div><a href={restaurant.url}>Check {restaurant.name} out on Yelp!</a></div>
+                         
+                        </div>  
                       </div>
-                      <p>
-                        {restaurant.address.address1} <br />
-                        {restaurant.address.city}, {restaurant.address.state} {restaurant.address.zip}
-                      </p>
-                      <p>
-                        Phone: {restaurant.phone}
-                      </p>
-                      <img src={restaurant.img} alt="Restaurant" className="rest-img"></img><br></br>
-                      <a href={restaurant.url}>Check {restaurant.name} out on Yelp!</a>
-                      <p>
-                        {restaurant.name} is: {restaurant.isClosed ? "Closed" : "Open"}
-                      </p>
-
                     </ListItem>
                   ))}
                 </List>
@@ -187,6 +191,7 @@ class Home extends Component {
             </div>
           </div>
         </div>
+      </Row>
 
 
       <Row>
