@@ -24,7 +24,7 @@ class About extends Component {
                 </h4>
                 <h4>
                     Kathy is currently working on bringing you reviews for the best 
-                    events and nightlife in your area. Stay tuned!
+                    events in your area. Stay tuned!
                 </h4><br/>
                 <h4>Sign up for an account today to get all the latest and greatest recommendations for your area!</h4> 
                         <button className="btn btn-outline-dark"><a href="/register">Register</a></button><br/><br/>
