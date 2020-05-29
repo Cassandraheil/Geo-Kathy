@@ -66,7 +66,7 @@ class Hotels extends Component {
         API.getWeather(this.state.coordinates)
           .then(res => {
             console.log("loadWeather res return: ", res);
-            this.setState({ weather: {min: res.data.minTemp, max: res.data.maxTemp} })
+            this.setState({ weather: {min: res.data.minTemp.toFixed(0), max: res.data.maxTemp.toFixed(0)} })
             console.log("weather state: ", this.state.weather)
           })
         API.hotelCall(this.state.location)
@@ -128,55 +128,63 @@ class Hotels extends Component {
     // const { user } = this.props.auth
     return (
         <Container fluid>
-         
-          <div className="jumbotron mt-4 jcolor scrollbar scrollbar-primary">
-            <div class="row" style={{height: '500px'}}>
-              <div class="col-3">
-                <img alt="Kathy" src="https://i.imgur.com/YRh15Mk.png" class="kathy"></img></div>
-              <div class="col-9">
-                <h1> Hello! Here's today's weather in your city:</h1>
-                <h4>Temp High: {this.state.weather.max}</h4>
-                <h4>Temp Low: {this.state.weather.min}</h4>
-  
-           
-            
-                <h1> Here are my recommendations for you based on your location:</h1>
-            
-            
-                {this.state.hotels.length ? (
-                  <List>
-                    {this.state.hotels.map((hotel, index) => (
-                      <ListItem key={"hotel" + index}>
-                        <h3>{hotel.name}</h3>
-                        <div>
+      <Row>
+         <Col size="md-12">
+        <div className="jumbotron mt-4 jcolor scrollbar scrollbar-primary">
+          <div className="row" style={{height: '500px'}}>
+            <div className="col-5 text-center">
+              <img alt="Kathy" src="https://i.imgur.com/YRh15Mk.png" class="kathy"></img>
+              <h2> Hello! Here's today's weather in {this.state.location}:</h2>
+              <h4>Temp High: {this.state.weather.max} °F</h4>
+              <h4>Temp Low: {this.state.weather.min} °F</h4>
+              <h2>Check out some of my local hotel recommendations!</h2>
+            </div>
+            <div className="col-7">
+          
+              {this.state.hotels.length ? (
+                <List className="scrollbar scrollbar-primary">
+                  {this.state.hotels.map((hotel, index) => (
+                    <ListItem key={"hotel" + index}>
+                      <div className="row">
+                        <div className="col-6 text-center">
+                          <h3>{hotel.name}</h3>
+                          <div>
+                            <p>
+                              Rating: {hotel.rating}    |
+                              Distance: {hotel.distance.toFixed(2)} miles
+                            </p>
+                          </div>
                           <p>
-                            Rating: {hotel.rating}    |
-                      Distance: {hotel.distance.toFixed(2)} miles
-                    </p>
+                            {hotel.address.address1} <br />
+                            {hotel.address.city}, {hotel.address.state} {hotel.address.zip}
+                          </p>
+                          <p>
+                            Phone: {hotel.phone}
+                          </p>
+                          <p>
+                            {hotel.name} is: <strong> {hotel.isClosed ? "Closed" : "Open"} </strong>
+                          </p>
                         </div>
-                        <p>
-                          {hotel.address.address1} <br />
-                          {hotel.address.city}, {hotel.address.state} {hotel.address.zip}
-                        </p>
-                        <p>
-                          Phone: {hotel.phone}
-                        </p>
-                        <img src={hotel.img} alt="Hotel" className="rest-img"></img><br></br>
-                        <a href={hotel.url}>Check {hotel.name} out on Yelp!</a>
-                        {/* <p>
-                          {hotel.name} is: {restaurant.isClosed ? "Closed" : "Open"}
-                        </p> */}
-  
-                      </ListItem>
-                    ))}
-                  </List>
-                ) : (
-                    <h3>No Results to Display</h3>
-                  )}
-                  
-              </div>
+                        <div className="col-6 px-0 rest-img">
+                          <img src={hotel.img} alt="Hotel" className="rest-img2"></img>
+                          {/* <br></br> */}
+                          <div><a href={hotel.url}>Check {hotel.name} out on Yelp!</a></div>
+                         
+                        </div>  
+                      </div>
+                    </ListItem>
+                  ))}
+                </List>
+              ) : (
+                  <h3>No Results to Display</h3>
+                )}
+                
             </div>
           </div>
+        </div>
+        </Col>
+      </Row>
+
   
   
         <Row>

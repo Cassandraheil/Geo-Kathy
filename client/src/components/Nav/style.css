@@ -10,5 +10,8 @@ nav {
   letter-spacing: 1.5px;
   position: absolute;
   right: 10px;
+  background-color: #FFFFFF;
+  border-color: #E8E8E8;
+  color: black;
   /* margin-left: 900px; */
 }
