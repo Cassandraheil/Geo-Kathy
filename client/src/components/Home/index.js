@@ -178,7 +178,7 @@ class Home extends Component {
                         <div className="col-6 px-0 rest-img">
                           <img src={restaurant.img} alt="Restaurant" className="rest-img2"></img>
                           {/* <br></br> */}
-                          <div><a href={restaurant.url}>Check {restaurant.name} out on Yelp!</a></div>
+                          <div><a href={restaurant.url} target="_blank">Check {restaurant.name} out on Yelp!</a></div>
                          
                         </div>  
                       </div>

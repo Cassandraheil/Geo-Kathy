@@ -168,7 +168,7 @@ class Hotels extends Component {
                         <div className="col-6 px-0 rest-img">
                           <img src={hotel.img} alt="Hotel" className="rest-img2"></img>
                           {/* <br></br> */}
-                          <div><a href={hotel.url}>Check {hotel.name} out on Yelp!</a></div>
+                          <div><a href={hotel.url} target="_blank">Check {hotel.name} out on Yelp!</a></div>
                          
                         </div>  
                       </div>

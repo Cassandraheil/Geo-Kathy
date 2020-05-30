@@ -11,7 +11,7 @@ function Jumbotron() {
                 When you sign in, the app grabs your location and populates what you see based on your area.
                 <br/>   <br/>
                 You can view posts other people have made, vote on what you like, and Kathy even gives
-       you recommendations of restaurants to checkout. <strong>Connect with Kathy today!</strong></h4>
+       you recommendations on what to checkout. <strong>Connect with Kathy today!</strong></h4>
             </div>
 
         </div>

@@ -22,12 +22,10 @@ module.exports = {
   create: function(req, res) {
     db.Post
       .create(req.body)
-      // .populate('username')
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
   update: function(req, res) {
-    console.log("request we looking for", req.params.user)
     db.Post.findOne({
        _id: req.params.id
       }).then(post => {
@@ -38,17 +36,4 @@ module.exports = {
       .catch(err => res.status(422).json(err));
       })
   }
-//   remove: function(req, res) {
-//     db.Book
-//       .findById({ _id: req.params.id })
-//       .then(dbModel => dbModel.remove())
-//       .then(dbModel => res.json(dbModel))
-//       .catch(err => res.status(422).json(err));
-//   }
 };
-
-//--------- steps to take once the username shows up on homepage
-// check if id is already in vote array--front end
-// call the update function if user id not already in there
-//make a new route for deleting the user id from array to take back their upvote
-//push user id to array or take away depending on if the id is already in array

@@ -2,7 +2,6 @@ import axios from "axios";
 
 export default {
   getWeather: function (coordinates) {
-    console.log("API page lat, lon: ", coordinates)
     return axios.post("/api/weather", coordinates)
   },
   getPosts: function(location) {
@@ -34,9 +33,5 @@ export default {
   },
   getUser: function(userID) {
     return axios.post("api/users/info/" + userID)
-  },
-
-  //updateLocation: function(userID, location) {
-    // return axios.put("api/NewRoute", { userLocation: location, userID })
-  //}
+  }
 };

@@ -167,7 +167,7 @@ render() {
                         <div className="col-6 px-0 rest-img">
                           <img src={bar.img} alt="Bar" className="rest-img2"></img>
                           {/* <br></br> */}
-                          <div><a href={bar.url}>Check {bar.name} out on Yelp!</a></div>
+                          <div><a href={bar.url} target="_blank">Check {bar.name} out on Yelp!</a></div>
                          
                         </div>  
                       </div>
