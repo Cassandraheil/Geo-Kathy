@@ -8,18 +8,6 @@ router.route("/")
 
 router.route("/info/:id")
   .post(userController.get);
-// router.put("/:id")
-//   .post(userController.update);
-
-
-//router.put("/update", (req, res) => {
-  // db.User.findOneandUpdate(userID)
-  // check if location is already set
-    // if no location set - set it
-  // check if location has already been added to past locations array
-    // if yes ignore
-    // if no push new location to array
-//})
 
 // validation stuff
 const bcrypt = require("bcryptjs");
@@ -106,6 +94,4 @@ router.post("/login", (req, res) => {
   });
 });
 
-
-  
 module.exports = router;

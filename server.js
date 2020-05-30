@@ -10,8 +10,6 @@ require("dotenv").config()
 // Define middleware here
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-// app.use(express.urlencoded({ extended: true }));
-// app.use(express.json());
 
 // Serve up static assets (usually on heroku)
 if (process.env.NODE_ENV === "production") {
@@ -26,14 +24,11 @@ app.use("/api/users", users);
 mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/geo-test", {
   useUnifiedTopology: true,
   useNewUrlParser: true,
-  // useFindAndModify: true
 }).then(() => console.log("MongoDB connected"));
 
 app.use(passport.initialize());
 require("./config/passport")(passport);
 
-
-// Start the API server
 app.listen(PORT, function() {
   console.log(`🌎  ==> API Server now listening on PORT ${PORT}!`);
 });

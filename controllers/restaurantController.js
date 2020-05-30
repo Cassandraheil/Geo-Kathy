@@ -1,4 +1,5 @@
 const axios = require("axios");
+require("dotenv").config();
 var restaurantsInArea = [];
 
 module.exports = {
