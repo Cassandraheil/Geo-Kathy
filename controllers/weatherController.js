@@ -5,7 +5,7 @@ module.exports = {
         console.log("-------------------------------")
         console.log("getWeather req: ", req.body)
         console.log("-------------------------------")
-        axios.get("https://api.climacell.co/v3/weather/forecast/daily?lat=" + req.body.lat + "&lon=" + req.body.lon + "&unit_system=us&start_time=now&fields=temp&apikey="+process.env.WEATHERKEY)
+        axios.get("https://api.climacell.co/v3/weather/forecast/daily?lat=" + req.body.lat + "&lon=" + req.body.lon + "&unit_system=us&start_time=now&fields=temp&apikey="+process.env.WEATHER_KEY)
         .then(function(results) {
             var temperatures = {
                 minTemp: "",

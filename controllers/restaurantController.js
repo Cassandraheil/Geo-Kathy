@@ -6,7 +6,7 @@ module.exports = {
     console.log(req.body.location);
     axios.get("https://api.yelp.com/v3/businesses/search?location="+ req.body.location, {
       headers: {
-        Authorization: 'Bearer '+ process.env.YELPKEY,
+        Authorization: 'Bearer '+ process.env.YELP_KEY,
       },
       params: {
         categories: "restaurants, food, American, Chinese, Soul Food, Italian, burgers, Spanish, pizza"

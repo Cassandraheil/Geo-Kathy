@@ -6,7 +6,7 @@ const app = express();
 const passport = require("passport");
 const users = require("./routes/api/users");
 const PORT = process.env.PORT || 3001;
-
+require("dotenv").config()
 // Define middleware here
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
